@@ -16,7 +16,7 @@ const Login = () => {
     password: true,
   });
   const [data, setData] =
-    useState<Omit<IRegister, "name" | "confirmPassword">>();
+    useState<Omit<IRegister, "name" | "passwordConfirmation">>();
   const submitLoginFormHandler = (e: FormEvent) => {
     e.preventDefault();
     const email = emailInputRef.current!.value;
@@ -30,10 +30,7 @@ const Login = () => {
       password: passwordIsValid,
     });
     if (formIsValid) {
-      setData({
-        email: email,
-        password: password,
-      });
+      setData({ email: email, password: password });
       console.log(data);
       emailInputRef.current!.value = "";
       passwordInputRef.current!.value = "";

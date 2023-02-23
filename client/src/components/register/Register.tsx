@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Input from "../UI/Input";
-import { IRegister } from "../types/Register.types";
+import { IRegister } from "../../types/Register.types";
 import classes from "./Register.module.css";
 
 const validEmail = (value: string) => value.trim().includes("@");
