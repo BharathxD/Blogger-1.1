@@ -1,0 +1,28 @@
+.invalid {
+  border-color: red;
+}
+
+.invalid-container {
+  background-color: rgb(255, 74, 74);
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form {
+  height: max-content;
+  text-align: center;
+  border: 1px solid #adadad;
+  background-color: #adadad23;
+  border-radius: 10px;
+}
+
+.form-validation {
+  margin-bottom: 10px;
+}
