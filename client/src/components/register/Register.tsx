@@ -47,12 +47,17 @@ const Register = () => {
       return;
     }
     if (formIsValid) {
-      const data = {
+      const obtainedData = {
         name: name,
         email: email,
         password: password,
         passwordConfirmation: confirmPassword,
       };
+      await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        body: JSON.stringify(obtainedData),
+        headers: { "Content-Type": "application/json" },
+      });
       setData(data);
       nameInputRef.current!.value = "";
       emailInputRef.current!.value = "";
