@@ -2,7 +2,7 @@ import classes from "./Login.module.css";
 import { FormEvent, useRef } from "react";
 import Input from "../UI/Input";
 import { useState } from "react";
-import { IRegister } from "../types/Register.types";
+import { IRegister } from "../../types/Register.types";
 
 const isEmpty = (value: string) =>
   value.trim() === "" && value.trim().length === 0;

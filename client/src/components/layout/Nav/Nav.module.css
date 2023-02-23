@@ -1,6 +1,7 @@
 .nav {
   padding: 10px;
   background-color: var(--var-color-2);
+  position: relative;
 }
 
 .nav ul {

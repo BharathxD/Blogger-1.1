@@ -131,6 +131,4 @@ button:focus-visible {
 
 #root {
   min-height: 100vh;
-  padding: none;
-  padding-bottom: 10vh;
 }
