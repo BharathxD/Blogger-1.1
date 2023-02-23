@@ -12,14 +12,15 @@ export interface UserDocument extends mongoose.Document {
 }
 
 const USER = {
-  email: {
-    type: String,
-    require: true,
-    unique: true,
-  },
   name: {
     type: String,
     require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+    min: 6,
+    unique: true,
   },
   password: {
     type: String,
@@ -42,12 +43,12 @@ userSchema.pre("save", async function (this: UserDocument, next) {
   next();
 });
 
-userSchema.methods.comparePassword(async function (
+userSchema.methods.comparePassword = async function (
   this: UserDocument,
   password: string
 ): Promise<boolean> {
   return bcrypt.compare(password, this.password).catch(() => false);
-});
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;

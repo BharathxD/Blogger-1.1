@@ -1,4 +1,5 @@
 export default {
   PORT: 3000,
-  dbUri: "mongodb://127.0.0.1:27017/blogger_2"
+  dbUri: "mongodb://127.0.0.1:27017/blogger_2",
+  saltWorkFactor: 10,
 };
