@@ -1,6 +1,16 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./Posts.module.css";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(
+    (state: { Session: { isLoggedIn: boolean } }) => state.Session.isLoggedIn
+  );
+  useEffect(() => {
+    if (isLoggedIn === false) navigate("/");
+  }, [isLoggedIn]);
   return (
     <main className={classes.entries}>
       <div className={classes.entry}>

@@ -6,46 +6,48 @@ import { login, logout, setUsername } from "../../../store";
 import UserButton from "./User/UserButton";
 
 const Nav = () => {
-  const navigate = useNavigate();
-  const {isLoggedIn, username} = useSelector(
-    (state: { Session: { isLoggedIn: boolean, username: string } }) => {
+  const { isLoggedIn, username } = useSelector(
+    (state: { Session: { isLoggedIn: boolean; username: string } }) => {
       return state.Session;
     }
   );
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async () => {
       const response = await fetch("http://localhost:3000/api/profile", {
         credentials: "include",
       });
       const data = await response.json();
-      dispatch(setUsername({username: data.name}))
+      dispatch(setUsername({ username: data.name }));
       dispatch(login());
-      setIsLoading(false);
     })();
-  }, []);
+  }, [dispatch]);
   const logoutHandler = () => {
     try {
       fetch("http://localhost:3000/api/logout", {
         credentials: "include",
       }).then(() => {
-        navigate('/');
+        navigate("/");
         dispatch(logout());
       });
     } catch (error: any) {
       console.log(error);
     }
   };
+  let userButton;
+  if (username) {
+    userButton = <UserButton username={username} />;
+  }
   return (
     <nav className={classes.nav}>
-      <Link to="/" className={classes.logo}>
+      <Link to={!isLoggedIn ? "/" : "/posts"} className={classes.logo}>
         Blogger 2.0
       </Link>
       {isLoggedIn === true && (
         <ul className={classes.loggedin}>
           <li>
-            <NavLink to="/login" className={classes.anchor}>
+            <NavLink to="/posts/create" className={classes.anchor}>
               New Post
             </NavLink>
           </li>
@@ -54,7 +56,7 @@ const Nav = () => {
               Logout
             </a>
           </li>
-          {!isLoading && <UserButton username={username} />}
+          {userButton}
         </ul>
       )}
       {isLoggedIn === false && (
