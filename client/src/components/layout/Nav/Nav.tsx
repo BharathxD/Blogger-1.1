@@ -1,10 +1,18 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Nav.module.css";
 
 const Nav = () => {
+  useEffect(() => {
+    fetch("http://localhost:3000/api/profile", {
+      credentials: "include",
+    });
+  }, []);
   return (
     <nav className={classes.nav}>
-      <NavLink to="/" className={classes.logo}>Blogger 2.0</NavLink>
+      <NavLink to="/" className={classes.logo}>
+        Blogger 2.0
+      </NavLink>
       <ul>
         <li>
           <NavLink

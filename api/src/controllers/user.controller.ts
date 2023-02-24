@@ -3,7 +3,7 @@ import { loginUserInput, registerUserInput } from "../schema/user.schema";
 import { registerUser, validatePassword } from "../services/user.service";
 import { omit } from "lodash";
 import logger from "../utils/logger";
-import { signJWT } from "../utils/jwt.utils";
+import { signJWT, verifyJWT } from "../utils/jwt.utils";
 
 export const registerUserHandler = async (
   req: Request<{}, {}, registerUserInput["body"]>,
@@ -35,4 +35,15 @@ export const loginUserHandler = async (
   } catch (error: any) {
     res.status(409).send({ message: error });
   }
+};
+
+export const profileHandler = async (req: Request, res: Response) => {
+  console.log("Running");
+  const { token } = req.cookies;
+  console.log("COOKIES: ", token);
+  const isValid = await verifyJWT(token);
+  if (!isValid) {
+    res.status(409).send({message: "User is unauthorized"})
+  }
+  res.status(200).send(isValid.decoded)
 };
