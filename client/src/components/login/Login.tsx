@@ -2,13 +2,16 @@ import classes from "./Login.module.css";
 import { FormEvent, useRef } from "react";
 import Input from "../UI/Input";
 import { useState } from "react";
-import { IRegister } from "../../types/Register.types";
-import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import { login } from "../../store";
 
 const isEmpty = (value: string) =>
   value.trim() === "" && value.trim().length === 0;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const [formInputIsValid, setFormInputIsValid] = useState({
@@ -41,8 +44,9 @@ const Login = () => {
         credentials: "include",
       });
       if (response.ok) {
+        navigate("/posts");
+        dispatch(login());
         setLoginSuccessful(true);
-        console.log(response);
         emailInputRef.current!.value = "";
         passwordInputRef.current!.value = "";
         setRedirect(true);
@@ -51,9 +55,6 @@ const Login = () => {
       }
     }
   };
-  if (redirect) {
-    return <Navigate to={"/posts"} />;
-  }
   return (
     <main className={classes["login-page"]}>
       <form onSubmit={submitLoginFormHandler}>

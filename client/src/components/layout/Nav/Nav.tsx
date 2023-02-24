@@ -1,26 +1,42 @@
 import { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import classes from "./Nav.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../../../store";
+import UserButton from "./User/UserButton";
 
 const Nav = () => {
-  const [username, setUsername] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(
+    (state: { Session: { isLoggedIn: boolean } }) => {
+      console.log("State: ", state.Session.isLoggedIn);
+      return state.Session.isLoggedIn;
+    }
+  );
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState<string>();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async () => {
       const response = await fetch("http://localhost:3000/api/profile", {
         credentials: "include",
       });
       const data = await response.json();
-      setIsLoggedIn(true);
-      setUsername(data.name);
+      dispatch(login());
+      setUsername(() => {
+        return data.name;
+      });
+      setIsLoading(false);
     })();
   }, []);
-  const logoutHandler = async () => {
+  const logoutHandler = () => {
     try {
-      await fetch("http://localhost:3000/api/logout", {
+      fetch("http://localhost:3000/api/logout", {
         credentials: "include",
+      }).then(() => {
+        navigate('/');
+        dispatch(logout());
       });
-      setIsLoggedIn(false);
     } catch (error: any) {
       console.log(error);
     }
@@ -30,7 +46,7 @@ const Nav = () => {
       <Link to="/" className={classes.logo}>
         Blogger 2.0
       </Link>
-      {isLoggedIn && (
+      {isLoggedIn === true && (
         <ul className={classes.loggedin}>
           <li>
             <NavLink to="/login" className={classes.anchor}>
@@ -42,14 +58,10 @@ const Nav = () => {
               Logout
             </a>
           </li>
-          <li>
-            <span className={classes.username}>
-              {username}&nbsp;<i className="bi bi-person-circle"></i>
-            </span>
-          </li>
+          {!isLoading && <UserButton username={username} />}
         </ul>
       )}
-      {!isLoggedIn && (
+      {isLoggedIn === false && (
         <ul>
           <li>
             <NavLink
