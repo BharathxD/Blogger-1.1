@@ -17,7 +17,7 @@ const Login = () => {
   });
   const [data, setData] =
     useState<Omit<IRegister, "name" | "passwordConfirmation">>();
-  const submitLoginFormHandler = (e: FormEvent) => {
+  const submitLoginFormHandler = async (e: FormEvent) => {
     e.preventDefault();
     const email = emailInputRef.current!.value;
     const password = passwordInputRef.current!.value;
@@ -30,8 +30,15 @@ const Login = () => {
       password: passwordIsValid,
     });
     if (formIsValid) {
-      setData({ email: email, password: password });
-      console.log(data);
+      const formData = { email: email, password: password };
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response);
       emailInputRef.current!.value = "";
       passwordInputRef.current!.value = "";
     }

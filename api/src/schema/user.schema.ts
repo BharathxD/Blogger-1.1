@@ -20,7 +20,20 @@ export const registerUserSchema = object({
   }),
 });
 
+export const loginUserSchema = object({
+  body: object({
+    email: string({
+      required_error: "Email is Required",
+    }),
+    password: string({
+      required_error: "Password is required",
+    }).min(6, "Password length should be greater than 6 characters"),
+  }),
+});
+
 export type registerUserInput = Omit<
   TypeOf<typeof registerUserSchema>,
   "body.passwordConfirmation"
 >;
+
+export type loginUserInput = TypeOf<typeof loginUserSchema>;

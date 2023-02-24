@@ -54,18 +54,16 @@ const Register = () => {
         password: password,
         passwordConfirmation: confirmPassword,
       };
-      try {
-        setRegisterStatus(null);
-        await fetch("http://localhost:3000/api/registe", {
-          method: "POST",
-          body: JSON.stringify(obtainedData),
-          headers: { "Content-Type": "application/json" },
-        });
-        setData(data);
-        setRegisterStatus(true);
-      } catch (error) {
-        setRegisterStatus(false);
-      }
+      setRegisterStatus(null);
+      const response = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        body: JSON.stringify(obtainedData),
+        headers: { "Content-Type": "application/json" },
+      });
+      setData(data);
+      setRegisterStatus(() => {
+        return response.status === 200;
+      });
       nameInputRef.current!.value = "";
       emailInputRef.current!.value = "";
       passwordRef.current!.value = "";
@@ -75,7 +73,7 @@ const Register = () => {
   return (
     <main className={classes["register-page"]}>
       <form onSubmit={submitRegisterFormHandler}>
-        {registerStatus && (
+        {registerStatus === false && (
           <div className={classes["registration-error"]}>
             Registration Failed
           </div>

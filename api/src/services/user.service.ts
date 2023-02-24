@@ -30,7 +30,7 @@ export const validatePassword = async ({
   if (!isValid) {
     return false;
   }
-  return omit(user.toJSON, "password");
+  return omit(user.toJSON(), "password");
 };
 
 export const findUser = async (query: mongoose.FilterQuery<UserDocument>) => {
