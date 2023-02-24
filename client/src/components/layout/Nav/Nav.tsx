@@ -2,19 +2,17 @@ import { useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import classes from "./Nav.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "../../../store";
+import { login, logout, setUsername } from "../../../store";
 import UserButton from "./User/UserButton";
 
 const Nav = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(
-    (state: { Session: { isLoggedIn: boolean } }) => {
-      console.log("State: ", state.Session.isLoggedIn);
-      return state.Session.isLoggedIn;
+  const {isLoggedIn, username} = useSelector(
+    (state: { Session: { isLoggedIn: boolean, username: string } }) => {
+      return state.Session;
     }
   );
   const dispatch = useDispatch();
-  const [username, setUsername] = useState<string>();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async () => {
@@ -22,10 +20,8 @@ const Nav = () => {
         credentials: "include",
       });
       const data = await response.json();
+      dispatch(setUsername({username: data.name}))
       dispatch(login());
-      setUsername(() => {
-        return data.name;
-      });
       setIsLoading(false);
     })();
   }, []);
