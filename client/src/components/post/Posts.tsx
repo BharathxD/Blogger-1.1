@@ -1,6 +1,6 @@
-import classes from "./Home.module.css";
+import classes from "./Posts.module.css";
 
-const Home = () => {
+const Posts = () => {
   return (
     <main className={classes.entries}>
       <div className={classes.entry}>
@@ -64,4 +64,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Posts;
