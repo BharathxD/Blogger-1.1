@@ -5,12 +5,13 @@ import Layout from "./components/layout/Layout";
 import Posts from "./components/post/Posts";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import Home from "./components/home/Home";
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Posts />} />
+        <Route path="/" element={<Home />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

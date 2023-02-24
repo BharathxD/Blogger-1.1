@@ -1,0 +1,49 @@
+.home {
+  min-height: 81vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+}
+
+.header {
+  margin-bottom: 50px;
+}
+
+.header span {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.header-container .header-actions {
+  width: 100%;
+  text-align: center;
+}
+
+.header-container .header-actions .button {
+  padding: 15px;
+  border-radius: 10px;
+  margin-right: 25px;
+  font-size: 2rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 1em 1.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: rgb(44, 44, 44);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  border-color: #f4f4f4;
+}
+
+.header-container .header-actions .button:hover {
+    background-color: #ececec;
+    color: rgb(44, 44, 44);
+}
+
+.header-container .header-actions .button:last-of-type {
+  margin-right: 0;
+}
