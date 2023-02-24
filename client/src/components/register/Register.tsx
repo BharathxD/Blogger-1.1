@@ -13,7 +13,7 @@ const Register = () => {
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [formInputIsValid, setFormInputIsValid] = useState({
     name: true,
     email: true,
@@ -22,6 +22,7 @@ const Register = () => {
     confirmPassword: true,
   });
   const [data, setData] = useState<IData>();
+  const [registerStatus, setRegisterStatus] = useState<boolean | null>(null);
 
   const submitRegisterFormHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,12 +54,18 @@ const Register = () => {
         password: password,
         passwordConfirmation: confirmPassword,
       };
-      await fetch("http://localhost:3000/api/register", {
-        method: "POST",
-        body: JSON.stringify(obtainedData),
-        headers: { "Content-Type": "application/json" },
-      });
-      setData(data);
+      try {
+        setRegisterStatus(null);
+        await fetch("http://localhost:3000/api/registe", {
+          method: "POST",
+          body: JSON.stringify(obtainedData),
+          headers: { "Content-Type": "application/json" },
+        });
+        setData(data);
+        setRegisterStatus(true);
+      } catch (error) {
+        setRegisterStatus(false);
+      }
       nameInputRef.current!.value = "";
       emailInputRef.current!.value = "";
       passwordRef.current!.value = "";
@@ -68,6 +75,11 @@ const Register = () => {
   return (
     <main className={classes["register-page"]}>
       <form onSubmit={submitRegisterFormHandler}>
+        {registerStatus && (
+          <div className={classes["registration-error"]}>
+            Registration Failed
+          </div>
+        )}
         <div className={classes["form-validation"]}>
           <Input
             ref={nameInputRef}
