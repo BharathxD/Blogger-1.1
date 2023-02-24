@@ -3,6 +3,7 @@ import { loginUserInput, registerUserInput } from "../schema/user.schema";
 import { registerUser, validatePassword } from "../services/user.service";
 import { omit } from "lodash";
 import logger from "../utils/logger";
+import { signJWT } from "../utils/jwt.utils";
 
 export const registerUserHandler = async (
   req: Request<{}, {}, registerUserInput["body"]>,
@@ -29,8 +30,9 @@ export const loginUserHandler = async (
     if (!user) {
       throw new Error("Invalid username or password");
     }
-    res.status(200).send({user: user});
+    const session = signJWT(user);
+    res.status(200).cookie("token", session).send(user);
   } catch (error: any) {
-    res.status(409).send({message: error});
+    res.status(409).send({ message: error });
   }
 };
