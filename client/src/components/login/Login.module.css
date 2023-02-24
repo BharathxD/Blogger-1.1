@@ -8,6 +8,13 @@
   border-radius: 10px;
 }
 
+
+.login-error {
+  background-color: rgb(255, 74, 74);
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
 .login-page {
   display: flex;
   justify-content: center;

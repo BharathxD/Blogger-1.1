@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173'}));
 
 app.listen(PORT, async () => {
   logger.info(`The server is running on http://localhost:${PORT}`);

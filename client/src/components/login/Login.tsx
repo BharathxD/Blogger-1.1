@@ -3,6 +3,7 @@ import { FormEvent, useRef } from "react";
 import Input from "../UI/Input";
 import { useState } from "react";
 import { IRegister } from "../../types/Register.types";
+import { Navigate } from "react-router-dom";
 
 const isEmpty = (value: string) =>
   value.trim() === "" && value.trim().length === 0;
@@ -15,8 +16,8 @@ const Login = () => {
     emailIsValid: true,
     password: true,
   });
-  const [data, setData] =
-    useState<Omit<IRegister, "name" | "passwordConfirmation">>();
+  const [loginSuccessful, setLoginSuccessful] = useState<boolean | null>(null);
+  const [redirect, setRedirect] = useState<boolean>(false);
   const submitLoginFormHandler = async (e: FormEvent) => {
     e.preventDefault();
     const email = emailInputRef.current!.value;
@@ -37,15 +38,30 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
-      console.log(response);
-      emailInputRef.current!.value = "";
-      passwordInputRef.current!.value = "";
+      if (response.ok) {
+        setLoginSuccessful(true);
+        console.log(response);
+        emailInputRef.current!.value = "";
+        passwordInputRef.current!.value = "";
+        setRedirect(true);
+      } else {
+        setLoginSuccessful(false);
+      }
     }
   };
+  if (redirect) {
+    return <Navigate to={"/posts"} />;
+  }
   return (
     <main className={classes["login-page"]}>
       <form onSubmit={submitLoginFormHandler}>
+        {loginSuccessful === false && (
+          <div className={classes["login-error"]}>
+            Username or Password is incorrect
+          </div>
+        )}
         <div className={classes["form-validation"]}>
           <Input
             ref={emailInputRef}
@@ -53,7 +69,7 @@ const Login = () => {
           />
           {!formInputIsValid.email && (
             <div className={classes["invalid-container"]}>
-              <p>Confirm Password can't be empty</p>
+              <p>Email can't be empty</p>
             </div>
           )}
         </div>
@@ -64,7 +80,7 @@ const Login = () => {
           />
           {!formInputIsValid.password && (
             <div className={classes["invalid-container"]}>
-              <p>Confirm Password can't be empty</p>
+              <p>Password can't be empty</p>
             </div>
           )}
         </div>

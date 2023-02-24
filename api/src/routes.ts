@@ -12,6 +12,7 @@ const route = (app: Express) => {
   });
   app.post("/api/register", validate(registerUserSchema), registerUserHandler);
   app.post("/api/login", validate(loginUserSchema), loginUserHandler);
+  app.get("api/profile", )
 };
 
 export default route;

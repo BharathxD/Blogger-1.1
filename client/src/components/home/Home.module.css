@@ -5,15 +5,13 @@
   align-items: center;
 }
 
-.header-container {
-}
-
 .header {
   margin-bottom: 50px;
 }
 
 .header span {
-  font-size: 4rem;
+  font-family: "Righteous", cursive;
+  font-size: 8rem;
   font-weight: 700;
 }
 
@@ -40,10 +38,16 @@
 }
 
 .header-container .header-actions .button:hover {
-    background-color: #ececec;
-    color: rgb(44, 44, 44);
+  background-color: #ececec;
+  color: rgb(44, 44, 44);
 }
 
 .header-container .header-actions .button:last-of-type {
   margin-right: 0;
+}
+
+@media screen and (max-width: 760px) {
+  .header span {
+    font-size: 4rem;
+  }
 }

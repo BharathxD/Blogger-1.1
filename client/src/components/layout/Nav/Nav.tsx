@@ -4,15 +4,8 @@ import classes from "./Nav.module.css";
 const Nav = () => {
   return (
     <nav className={classes.nav}>
+      <NavLink to="/" className={classes.logo}>Blogger 2.0</NavLink>
       <ul>
-        <li>
-          <NavLink
-            to="/"
-            className={(isActive) => (isActive ? classes.active : undefined)}
-          >
-            Home
-          </NavLink>
-        </li>
         <li>
           <NavLink
             to="/login"

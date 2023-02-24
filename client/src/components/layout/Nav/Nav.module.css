@@ -2,6 +2,19 @@
   padding: 10px;
   background-color: var(--var-color-2);
   position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.nav .logo {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.nav .logo:hover {
+  color: #f4f4f4;
 }
 
 .nav ul {

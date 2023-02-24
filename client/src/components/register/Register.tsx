@@ -59,6 +59,7 @@ const Register = () => {
         method: "POST",
         body: JSON.stringify(obtainedData),
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
       });
       setData(data);
       setRegisterStatus(() => {
