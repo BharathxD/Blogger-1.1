@@ -4,6 +4,8 @@ import connect from "./utils/connect";
 import cors from "cors";
 import logger from "./utils/logger";
 import route from "./routes";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = config.get<number>("PORT");
 const app = express();
