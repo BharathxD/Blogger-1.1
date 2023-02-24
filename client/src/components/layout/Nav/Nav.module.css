@@ -8,6 +8,32 @@
   flex-direction: row;
 }
 
+.nav .username {
+  margin-right: 20px;
+  background-color: #f4f4f4;
+  color: rgb(44, 44, 44);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.nav .username i{
+  font-size: 1rem ;
+}
+
+.nav .loggedin {
+  gap: 10px;
+}
+
+.anchor {
+  background-color: rgb(44, 44, 44);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.anchor:hover {
+  outline: 1px solid #c2c2c2;
+}
+
 .nav .logo {
   font-size: 2rem;
   font-weight: 700;

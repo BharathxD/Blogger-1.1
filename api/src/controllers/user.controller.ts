@@ -37,13 +37,21 @@ export const loginUserHandler = async (
   }
 };
 
-export const profileHandler = async (req: Request, res: Response) => {
-  console.log("Running");
+export const profileHandler = (req: Request, res: Response) => {
   const { token } = req.cookies;
-  console.log("COOKIES: ", token);
-  const isValid = await verifyJWT(token);
-  if (!isValid) {
-    res.status(409).send({message: "User is unauthorized"})
+  try {
+    if (token) {
+      const isValid = verifyJWT(token);
+      if (!isValid) {
+        res.status(409).send({ message: "User is unauthorized" });
+      }
+      res.status(200).send(isValid.decoded);
+    }
+  } catch (error: any) {
+    logger.error(error.message);
   }
-  res.status(200).send(isValid.decoded)
+};
+
+export const logoutHandler = async (req: Request, res: Response) => {
+  res.status(200).cookie("token", "").json({ message: "Session Ended" });
 };

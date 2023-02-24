@@ -3,6 +3,7 @@ import validate from "./middlewares/validateSchema.middlware";
 import { loginUserSchema, registerUserSchema } from "./schema/user.schema";
 import {
   loginUserHandler,
+  logoutHandler,
   profileHandler,
   registerUserHandler,
 } from "./controllers/user.controller";
@@ -14,6 +15,7 @@ const route = (app: Express) => {
   app.post("/api/register", validate(registerUserSchema), registerUserHandler);
   app.post("/api/login", validate(loginUserSchema), loginUserHandler);
   app.get("/api/profile", profileHandler)
+  app.get("/api/logout", logoutHandler)
 };
 
 export default route;
