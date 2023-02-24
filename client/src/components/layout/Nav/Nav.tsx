@@ -1,29 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import classes from "./Nav.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { login, logout, setUsername } from "../../../store";
 import UserButton from "./User/UserButton";
 
-const Nav = () => {
-  const { isLoggedIn, username } = useSelector(
-    (state: { Session: { isLoggedIn: boolean; username: string } }) => {
-      return state.Session;
-    }
-  );
-  const navigate = useNavigate();
+const Nav: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn, username } = useSelector(
+    (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
+      isLoggedIn: state.Session.isLoggedIn,
+      username: state.Session.username,
+    })
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
-    (async () => {
-      const response = await fetch("http://localhost:3000/api/profile", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      dispatch(setUsername({ username: data.name }));
-      dispatch(login());
-    })();
+    const checkLoginStatus = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:3000/api/profile", {
+          credentials: "include",
+        });
+        const data = await response.json();
+        if (data.name) {
+          dispatch(login());
+          dispatch(setUsername({ username: data.name }));
+        } else {
+          dispatch(logout());
+        }
+      } catch (error: any) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkLoginStatus();
   }, [dispatch]);
-  const logoutHandler = () => {
+
+  const logoutHandler = useCallback(() => {
     try {
       fetch("http://localhost:3000/api/logout", {
         credentials: "include",
@@ -34,17 +50,14 @@ const Nav = () => {
     } catch (error: any) {
       console.log(error);
     }
-  };
-  let userButton;
-  if (username) {
-    userButton = <UserButton username={username} />;
-  }
+  }, [dispatch, navigate]);
+
   return (
     <nav className={classes.nav}>
       <Link to={!isLoggedIn ? "/" : "/posts"} className={classes.logo}>
         Blogger 2.0
       </Link>
-      {isLoggedIn === true && (
+      {isLoggedIn && (
         <ul className={classes.loggedin}>
           <li>
             <NavLink to="/posts/create" className={classes.anchor}>
@@ -53,13 +66,13 @@ const Nav = () => {
           </li>
           <li>
             <a href="#" onClick={logoutHandler} className={classes.anchor}>
-              Logout
+              <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>
-          {userButton}
+          <UserButton username={isLoading ? "Loading..." : username} />
         </ul>
       )}
-      {isLoggedIn === false && (
+      {!isLoggedIn && (
         <ul>
           <li>
             <NavLink

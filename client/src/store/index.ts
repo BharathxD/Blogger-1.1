@@ -1,5 +1,10 @@
-import { PayloadAction, configureStore } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  configureStore,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { ThunkAction } from "redux-thunk";
 
 interface ISessionState {
   username: string;
@@ -37,5 +42,6 @@ const store = configureStore({
   },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export default store;
 export const { login, logout, setUsername } = Session.actions;

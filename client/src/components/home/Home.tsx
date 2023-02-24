@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { LayoutEnum } from "../../constants/layout.constants";
 import classes from "./Home.module.css";
 
-const Home = () => {
+interface Props {
+  isLoggedIn: boolean;
+}
+
+const Home: React.FC<Props> = ({ isLoggedIn }) => {
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(
-    (state: { Session: { isLoggedIn: boolean } }) => state.Session.isLoggedIn
-  );
   useEffect(() => {
     if (isLoggedIn === true) navigate("/posts");
   }, [isLoggedIn]);

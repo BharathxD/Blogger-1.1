@@ -6,7 +6,7 @@ const UserButton: React.FC<{ username: string | undefined }> = ({
   return (
     <li>
       <span className={classes.username}>
-        {username}&nbsp;<i className="bi bi-person-circle"></i>
+        {username}&nbsp; <i className="bi bi-person-circle"></i>
       </span>
     </li>
   );
