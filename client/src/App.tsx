@@ -9,13 +9,16 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import CreatePost from "./pages/posts/components/CreatePost";
+import { ISessionState } from "./types/Session.types";
+
+interface State {
+  Session: Pick<ISessionState, "isLoggedIn">;
+}
 
 function App() {
-  const { isLoggedIn, username } = useSelector(
-    (state: { Session: { isLoggedIn: boolean; username: string } }) => {
-      return state.Session;
-    }
-  );
+  const isLoggedIn = useSelector((state: State) => {
+    return state.Session.isLoggedIn;
+  });
   return (
     <Layout>
       <Routes>

@@ -7,6 +7,8 @@ import {
   profileHandler,
   registerUserHandler,
 } from "./controllers/user.controller";
+import { postHandler } from "./controllers/post.controller";
+import uploadMiddleware from "./middlewares/uploadMiddleware";
 
 const route = (app: Express) => {
   app.get("/healthcheck", (req: Request, res: Response) => {
@@ -14,8 +16,9 @@ const route = (app: Express) => {
   });
   app.post("/api/register", validate(registerUserSchema), registerUserHandler);
   app.post("/api/login", validate(loginUserSchema), loginUserHandler);
-  app.get("/api/profile", profileHandler)
-  app.get("/api/logout", logoutHandler)
+  app.get("/api/profile", profileHandler);
+  app.get("/api/logout", logoutHandler);
+  app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
 };
 
 export default route;

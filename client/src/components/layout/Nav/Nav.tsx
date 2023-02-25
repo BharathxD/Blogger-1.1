@@ -69,7 +69,7 @@ const Nav: React.FC = () => {
               <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>
-          <UserButton username={isLoading ? "Loading..." : username} />
+          <UserButton username={isLoading && username ? "Loading..." : username} />
         </ul>
       )}
       {!isLoggedIn && (
