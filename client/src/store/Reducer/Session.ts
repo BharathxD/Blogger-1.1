@@ -9,6 +9,7 @@ interface ISessionState {
 }
 
 interface ISessionAction {
+  userId: string;
   username: string;
 }
 
@@ -29,7 +30,7 @@ export const Session = createSlice({
       return { ...state, isLoggedIn: false };
     },
     setUsername(state, action: PayloadAction<ISessionAction>) {
-      return { ...state, username: action.payload.username };
+      return { ...state, userId: action.payload.userId, username: action.payload.username };
     },
   },
 });

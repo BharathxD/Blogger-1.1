@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import fs from "fs";
-import { getPosts, uploadPost } from "../services/post.service";
+import { findPost, getPosts, uploadPost } from "../services/post.service";
 import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
 import { findUser } from "../services/user.service";
@@ -35,6 +35,18 @@ export const getPostsHandler = async (req: Request, res: Response) => {
     res.status(200).send(posts);
   } catch (error: any) {
     logger.error(error);
+    res.status(409).send({ message: error });
+  }
+};
+
+export const findPostHandler = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    console.log(postId)
+    const post = await findPost({ _id: postId });
+    console.log(post)
+    res.status(200).send(post);
+  } catch (error: any) {
     res.status(409).send({ message: error });
   }
 };

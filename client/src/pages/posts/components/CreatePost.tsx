@@ -4,33 +4,11 @@ import Input from "../../../components/UI/Input";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
+import Quill from "../UI/Quill";
 
 interface Props {
   isLoggedIn: boolean;
 }
-
-const formats = [
-  "header",
-  "bolid",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-];
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, false] }],
-    ["bold", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }],
-    [{ link: "image" }],
-    ["clean"],
-  ],
-};
 
 const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
   const navigate = useNavigate();
@@ -82,14 +60,18 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
           />
         </div>
         <div className={classes["input-container"]}>
-          <ReactQuill
+          <Quill
+            textAreaValue={textAreaValue}
+            setTextAreaValue={setTextAreaValue}
+          />
+          {/* <ReactQuill
             value={textAreaValue}
             onChange={setTextAreaValue}
             modules={modules}
             formats={formats}
             className={classes.quill}
             theme="snow"
-          />
+          /> */}
         </div>
         <div className={classes["form-actions"]}>
           <button type="submit">Submit</button>

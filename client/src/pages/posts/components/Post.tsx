@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import classes from "./Post.module.css";
 
 interface Props {
+  _id: string,
   content: string;
   cover: string;
   author: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({
+  _id,
   content,
   cover,
   summary,
@@ -18,6 +20,7 @@ const Post: React.FC<Props> = ({
   title,
   createdAt,
 }) => {
+  console.log(_id)
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>
@@ -33,6 +36,7 @@ const Post: React.FC<Props> = ({
         </h6>
         {/* <p dangerouslySetInnerHTML={{ __html: content }} /> */}
         <p>{summary}</p>
+        <a href={"/posts/"+_id}>Link</a>
       </div>
     </div>
   );

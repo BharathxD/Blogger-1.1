@@ -3,9 +3,18 @@ import { useParams } from "react-router-dom";
 import { postsData } from "../Posts";
 import { format } from "date-fns";
 import classes from "./PostPage.module.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PostPage: React.FC = () => {
   const { id } = useParams();
+  const userId = useSelector(
+    (state: {
+      Session: {
+        userId: string;
+      };
+    }) => state.Session.userId
+  );
   const [data, setData] = useState<postsData | null>();
   const [fetchState, setFetchState] = useState<{
     error: boolean;
@@ -18,9 +27,10 @@ const PostPage: React.FC = () => {
     const fetchPost = async () => {
       try {
         setData(null);
-        const response = await fetch(`http://localhost:3000/post/${id}`);
+        const response = await fetch(`http://localhost:3000/api/posts/${id}`);
+        if (!response.ok) throw new Error("Somethign went wrong");
         const data = await response.json();
-        setData(data);
+        setData(data[0]);
         setFetchState({
           error: false,
           isLoading: false,
@@ -51,6 +61,7 @@ const PostPage: React.FC = () => {
   }
   return (
     <main>
+      {userId === data?.author._id && <Link to={`/posts/edit/${data._id}`}>Edit</Link>}
       <div className={classes.picture}>
         <img
           alt="image"

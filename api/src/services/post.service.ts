@@ -23,3 +23,12 @@ export const getPosts = async () => {
   console.log(post);
   return post;
 };
+
+export const findPost = async (query: mongoose.FilterQuery<PostDocument>) => {
+  try {
+    const post = await postModel.findOne(query).lean();
+    return post;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

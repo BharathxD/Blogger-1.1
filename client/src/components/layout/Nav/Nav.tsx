@@ -26,7 +26,7 @@ const Nav: React.FC = () => {
         const data = await response.json();
         if (data.name) {
           dispatch(login());
-          dispatch(setUsername({ username: data.name }));
+          dispatch(setUsername({ userId: data._id,username: data.name }));
         } else {
           dispatch(logout());
         }

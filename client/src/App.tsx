@@ -32,7 +32,8 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/posts/:id" element={<PostPage />} />
+        <Route path="/posts/create/:id" element={<PostPage />} />
       </Routes>
     </Layout>
   );

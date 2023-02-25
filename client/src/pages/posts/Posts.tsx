@@ -8,9 +8,9 @@ interface Props {
 }
 
 export interface postsData {
-  id: string;
+  _id: string;
   content: string;
-  author: { name: string };
+  author: { name: string, _id: string};
   cover: string;
   summary: string;
   title: string;
@@ -31,8 +31,8 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
       });
       const fetchedData = await response.json();
       let loadedPosts: postsData[] = Object.entries(fetchedData).map(
-        ([id, { title, summary, content, author, cover, createdAt }]: any) => ({
-          id,
+        ([id, {_id,  title, summary, content, author, cover, createdAt }]: any) => ({
+          _id,
           title,
           author,
           summary,
@@ -41,7 +41,7 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
           createdAt,
         })
       );
-      console.log(loadedPosts);
+      console.log(loadedPosts[0]._id);
       setData(loadedPosts);
       console.log(fetchedData);
     };
@@ -53,7 +53,8 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
         data.map((post: postsData) => {
           return (
             <Post
-              key={post.id}
+              key={post._id}
+              _id={post._id}
               title={post.title}
               author={post.author.name}
               summary={post.summary}

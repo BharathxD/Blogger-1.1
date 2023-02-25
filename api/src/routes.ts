@@ -20,6 +20,7 @@ const route = (app: Express) => {
   app.get("/api/logout", logoutHandler);
   app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
   app.get("/api/posts", getPostsHandler);
+  app.get("/api/posts/:postId", getPostsHandler);
 };
 
 export default route;
