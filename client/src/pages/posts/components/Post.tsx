@@ -4,6 +4,7 @@ import classes from "./Post.module.css";
 interface Props {
   content: string;
   cover: string;
+  author: string;
   summary: string;
   title: string;
   createdAt: string;
@@ -13,6 +14,7 @@ const Post: React.FC<Props> = ({
   content,
   cover,
   summary,
+  author,
   title,
   createdAt,
 }) => {
@@ -26,7 +28,7 @@ const Post: React.FC<Props> = ({
       </div>
       <div className={classes.details}>
         <h2>{title}</h2>
-        <h4>{format(new Date(createdAt), 'MMM d, yyyy HH:mm')}</h4>
+        <h6>{author} at {format(new Date(createdAt), 'MMM d, yyyy HH:mm')}</h6>
         <p>{content}</p>
       </div>
     </div>
