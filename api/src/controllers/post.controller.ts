@@ -50,3 +50,11 @@ export const findPostHandler = async (req: Request, res: Response) => {
     res.status(409).send({ message: error });
   }
 };
+
+export const editPostHandler = async (req: Request, res: Response) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}

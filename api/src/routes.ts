@@ -7,7 +7,11 @@ import {
   profileHandler,
   registerUserHandler,
 } from "./controllers/user.controller";
-import { getPostsHandler, postHandler } from "./controllers/post.controller";
+import {
+  editPostHandler,
+  getPostsHandler,
+  postHandler,
+} from "./controllers/post.controller";
 import uploadMiddleware from "./middlewares/uploadMiddleware";
 
 const route = (app: Express) => {
@@ -21,6 +25,7 @@ const route = (app: Express) => {
   app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
   app.get("/api/posts", getPostsHandler);
   app.get("/api/posts/:postId", getPostsHandler);
+  app.put("/api/posts/edit/:postId", editPostHandler);
 };
 
 export default route;
