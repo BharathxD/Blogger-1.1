@@ -3,7 +3,7 @@ import classes from "./CreatePost.module.css";
 import Input from "../../../components/UI/Input";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Quill from "../UI/Quill";
 import { id } from "date-fns/locale";
 import { postsData } from "../Posts";
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     if (isLoggedIn === false) navigate("/");
@@ -60,12 +61,17 @@ const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
     form.set("title", title);
     form.set("summary", summary);
     form.set("content", textAreaValue);
-    form.set("file", file![0]);
-    await fetch("http://localhost:3000/api/posts", {
-      method: "GET",
+    if (file?.[0]) {
+      form.set("file", file?.[0]);
+    }
+    const response = await fetch(`http://localhost:3000/api/posts/edit/${id}`, {
+      method: "PUT",
       body: form,
       credentials: "include",
     });
+    if (response.ok) {
+      navigate(`/posts/${id}`);
+    }
   };
   return (
     <main className={classes["create-post"]}>
@@ -94,10 +100,7 @@ const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
           />
         </div>
         <div className={classes["input-container"]}>
-          <Quill
-            value={textAreaValue}
-            onChange={setTextAreaValue}
-          />
+          <Quill value={textAreaValue} onChange={setTextAreaValue} />
         </div>
         <div className={classes["form-actions"]}>
           <button type="submit">Submit</button>

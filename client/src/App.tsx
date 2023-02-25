@@ -24,7 +24,6 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/*" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/posts" element={<Posts isLoggedIn={isLoggedIn} />} />
         <Route

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { UpdateQuery } from "mongoose";
 import postModel, { PostDocument } from "../models/post.model";
 
 export const uploadPost = async (
@@ -30,4 +30,11 @@ export const findPost = async (query: mongoose.FilterQuery<PostDocument>) => {
   } catch (error: any) {
     throw new Error(error);
   }
+};
+
+export const updatePost = async (
+  query: mongoose.FilterQuery<PostDocument>,
+  update: UpdateQuery<PostDocument>
+) => {
+  return await postModel.findByIdAndUpdate(query, update);
 };

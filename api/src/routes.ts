@@ -25,7 +25,7 @@ const route = (app: Express) => {
   app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
   app.get("/api/posts", getPostsHandler);
   app.get("/api/posts/:postId", getPostsHandler);
-  app.put("/api/posts/edit/:postId", editPostHandler);
+  app.put("/api/posts/edit/:postId", uploadMiddleware.single('file'), editPostHandler);
 };
 
 export default route;

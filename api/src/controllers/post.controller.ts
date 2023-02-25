@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
 import fs from "fs";
-import { findPost, getPosts, uploadPost } from "../services/post.service";
-import { verifyJWT } from "../utils/jwt.utils";
+import {
+  findPost,
+  getPosts,
+  updatePost,
+  uploadPost,
+} from "../services/post.service";
+import { signJWT, verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
 import { findUser } from "../services/user.service";
 
@@ -51,5 +56,29 @@ export const findPostHandler = async (req: Request, res: Response) => {
 
 export const editPostHandler = async (req: Request, res: Response) => {
   try {
-  } catch (error) {}
+    let newPath = null;
+    if (req.file) {
+      const { originalname, path } = req.file;
+      const parts = originalname.split(".");
+      const ext = parts[parts.length - 1];
+      newPath = path + "." + ext;
+      fs.renameSync(path, newPath);
+    }
+    const { token } = req.cookies;
+    const user = verifyJWT(token);
+    if (!user) {
+      throw new Error("User is not authenticated");
+    }
+    const userId = (user.decoded as { _id: string })._id;
+    const requestedPost = await findPost({author: userId})
+    if (!requestedPost) {
+      throw new Error("The user is not authenticated to do this operation")
+    }
+    const { postId } = req.params;
+    const update = req.body;
+    const updatedPost = await updatePost({ _id: postId }, update);
+    res.status(200).send(updatedPost);
+  } catch (error: any) {
+    res.status(409).send({ message: error.message });
+  }
 };

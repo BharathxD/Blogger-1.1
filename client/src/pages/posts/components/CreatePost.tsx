@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import classes from "./CreatePost.module.css";
 import Input from "../../../components/UI/Input";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import Quill from "../UI/Quill";
@@ -61,8 +60,8 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
         </div>
         <div className={classes["input-container"]}>
           <Quill
-            textAreaValue={textAreaValue}
-            setTextAreaValue={setTextAreaValue}
+            value={textAreaValue}
+            onChange={setTextAreaValue}
           />
         </div>
         <div className={classes["form-actions"]}>
