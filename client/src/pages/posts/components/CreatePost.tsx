@@ -84,6 +84,7 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
         <div className={classes["input-container"]}>
           <ReactQuill
             value={textAreaValue}
+            onChange={setTextAreaValue}
             modules={modules}
             formats={formats}
             className={classes.quill}

@@ -13,3 +13,11 @@ export const uploadPost = async (
     throw new Error(error);
   }
 };
+
+export const getPosts = async () => {
+  return postModel
+    .find()
+    .populate("author", ["username"])
+    .sort({ createdAt: -1 })
+    .limit(20);
+};

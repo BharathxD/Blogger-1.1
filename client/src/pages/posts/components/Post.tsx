@@ -1,6 +1,13 @@
 import classes from "./Post.module.css";
 
-const Post: React.FC = () => {
+interface Props {
+  content: string;
+  cover: string;
+  summary: string;
+  title: string;
+}
+
+const Post: React.FC<Props> = ({content, cover, summary, title}) => {
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>
@@ -10,14 +17,9 @@ const Post: React.FC = () => {
         />
       </div>
       <div className={classes.details}>
-        <h2>Security researchers warn of a new class of Apple bugs</h2>
+        <h2>{title}</h2>
         <p>
-          Security researchers say they have uncovered a “new class” of
-          vulnerabilities that could allow attackers to bypass Apple’s security
-          protections in iOS and macOS to access users’ sensitive data.
-          Trellix’s Advanced Research Center published details this week of the
-          privilege escalation vulnerabilities — meaning they allow someone to
-          gain an elevated...
+          {content}
         </p>
       </div>
     </div>
