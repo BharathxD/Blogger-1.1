@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import fs from "fs";
 import {
+  deletePost,
   findPost,
   getOnePost,
   getPosts,
@@ -53,6 +54,16 @@ export const getOnePostHandler = async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.error(error);
     res.status(409).send({ message: error });
+  }
+};
+
+export const deletePostHandler = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const response = await deletePost({_id: postId});
+    res.status(200).send({ message: "Ok" });
+  } catch (error: any) {
+    res.status(409).send({ message: error.message });
   }
 };
 

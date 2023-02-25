@@ -8,6 +8,7 @@ import {
   registerUserHandler,
 } from "./controllers/user.controller";
 import {
+  deletePostHandler,
   editPostHandler,
   getOnePostHandler,
   getPostsHandler,
@@ -27,6 +28,7 @@ const route = (app: Express) => {
   app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
   app.get("/api/posts", getPostsHandler);
   app.get("/api/posts/:postId", getOnePostHandler);
+  app.delete("/api/posts/:postId", deletePostHandler);
   app.put(
     "/api/posts/edit/:postId",
     uploadMiddleware.single("file"),

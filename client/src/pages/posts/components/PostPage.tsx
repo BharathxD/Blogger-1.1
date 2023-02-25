@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { postsData } from "../Posts";
 import { format } from "date-fns";
 import classes from "./PostPage.module.css";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const PostPage: React.FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const userId = useSelector(
     (state: {
       Session: {
@@ -33,7 +34,7 @@ const PostPage: React.FC = () => {
         if (!response.ok) throw new Error("Something went wrong");
         const data = await response.json();
         setData(data[0]);
-        console.log(data)
+        console.log(data);
         setFetchState({
           error: false,
           isLoading: false,
@@ -47,13 +48,40 @@ const PostPage: React.FC = () => {
     };
     fetchPost();
   }, [id]);
+  const deletePostHandler = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/posts/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("The post couldn't be deleted");
+      }
+      navigate("/");
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+  if (!data) {
+    return <h1>Something went wrong.</h1>;
+  }
   return (
     <main>
       {fetchState.isLoading && <p>Loading</p>}
       {!fetchState.isLoading && (
         <>
           {userId === data!.author._id && (
-            <Link to={`/posts/edit/${id}`}>Edit</Link>
+            <div className={classes.actions}>
+              <Link to={`/posts/edit/${id}`} className={classes.buttons}>
+                Edit this post
+              </Link>
+              <Link
+                to={"/"}
+                onClick={deletePostHandler}
+                className={classes.buttons}
+              >
+                Delete this post
+              </Link>
+            </div>
           )}
           <div className={classes.picture}>
             <img
@@ -64,10 +92,15 @@ const PostPage: React.FC = () => {
           <div className={classes.details}>
             <h2>{data!.title}</h2>
             <h6>
-              {data!.author.name} at
-              {format(new Date(data!.createdAt), "MMM d, yyyy HH:mm")}
+              <span className={classes.createdAt}>
+                {data!.author.name}&nbsp;on&nbsp;
+                {format(new Date(data!.createdAt), "MMM d, yyyy HH:mm")}
+              </span>
             </h6>
-            <p dangerouslySetInnerHTML={{ __html: data!.content }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: data!.content }}
+              className={classes.content}
+            />
           </div>
         </>
       )}

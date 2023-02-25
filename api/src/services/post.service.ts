@@ -1,5 +1,6 @@
 import mongoose, { UpdateQuery } from "mongoose";
 import postModel, { PostDocument } from "../models/post.model";
+import { query } from "express";
 
 export const uploadPost = async (
   input: mongoose.DocumentDefinition<
@@ -49,4 +50,8 @@ export const updatePost = async (
   update: UpdateQuery<PostDocument>
 ) => {
   return await postModel.findByIdAndUpdate(query, update);
+};
+
+export const deletePost = async (query: mongoose.FilterQuery<PostDocument>) => {
+  return await postModel.deleteOne(query).lean();
 };
