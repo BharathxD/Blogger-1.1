@@ -21,7 +21,10 @@ const Post: React.FC<Props> = ({
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>
-        <img alt="image" src={"http://localhost:3000/" + cover} />
+        <img
+          alt="image"
+          src={"http://localhost:3000/" + cover.replace("src/", "")}
+        />
       </div>
       <div className={classes.details}>
         <h2>{title}</h2>
