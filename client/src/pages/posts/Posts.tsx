@@ -56,6 +56,7 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
               summary={post.summary}
               content={post.content}
               cover={post.cover}
+              createdAt={post.createdAt}
             />
           );
         })}

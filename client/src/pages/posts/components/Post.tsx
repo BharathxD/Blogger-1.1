@@ -1,3 +1,4 @@
+import { format, formatISO9075 } from "date-fns";
 import classes from "./Post.module.css";
 
 interface Props {
@@ -5,9 +6,16 @@ interface Props {
   cover: string;
   summary: string;
   title: string;
+  createdAt: string;
 }
 
-const Post: React.FC<Props> = ({content, cover, summary, title}) => {
+const Post: React.FC<Props> = ({
+  content,
+  cover,
+  summary,
+  title,
+  createdAt,
+}) => {
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>
@@ -18,9 +26,8 @@ const Post: React.FC<Props> = ({content, cover, summary, title}) => {
       </div>
       <div className={classes.details}>
         <h2>{title}</h2>
-        <p>
-          {content}
-        </p>
+        <h4>{format(new Date(createdAt), 'MMM d, yyyy HH:mm')}</h4>
+        <p>{content}</p>
       </div>
     </div>
   );
