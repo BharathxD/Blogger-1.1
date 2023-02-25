@@ -1,4 +1,4 @@
-import { format, formatISO9075 } from "date-fns";
+import { format } from "date-fns";
 import classes from "./Post.module.css";
 
 interface Props {
@@ -21,15 +21,14 @@ const Post: React.FC<Props> = ({
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>
-        <img
-          alt="image"
-          src="https://techcrunch.com/wp-content/uploads/2022/10/CMC_3800.jpg?w=430&h=230&crop=1"
-        />
+        <img alt="image" src={"http://localhost:3000/" + cover} />
       </div>
       <div className={classes.details}>
         <h2>{title}</h2>
-        <h6>{author} at {format(new Date(createdAt), 'MMM d, yyyy HH:mm')}</h6>
-        <p>{content}</p>
+        <h6>
+          {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
+        </h6>
+        <p dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </div>
   );
