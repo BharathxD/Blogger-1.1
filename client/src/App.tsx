@@ -11,6 +11,7 @@ import Home from "./pages/home/Home";
 import CreatePost from "./pages/posts/components/CreatePost";
 import { ISessionState } from "./types/Session.types";
 import PostPage from "./pages/posts/components/PostPage";
+import EditPost from "./pages/posts/components/EditPost";
 
 interface State {
   Session: Pick<ISessionState, "isLoggedIn">;
@@ -33,7 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/posts/:id" element={<PostPage />} />
-        <Route path="/posts/create/:id" element={<PostPage />} />
+        <Route path="/posts/edit/:id" element={<EditPost isLoggedIn={isLoggedIn}/>} />
       </Routes>
     </Layout>
   );

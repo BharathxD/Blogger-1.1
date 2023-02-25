@@ -40,7 +40,6 @@ const PostPage: React.FC = () => {
           error: true,
           isLoading: false,
         });
-        console.log("error");
       }
     };
     fetchPost();

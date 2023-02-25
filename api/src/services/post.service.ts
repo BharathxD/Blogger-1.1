@@ -20,7 +20,6 @@ export const getPosts = async () => {
     .populate("author", ["name"])
     .sort({ createdAt: -1 })
     .limit(20);
-  console.log(post);
   return post;
 };
 

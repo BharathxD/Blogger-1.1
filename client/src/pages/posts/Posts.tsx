@@ -41,9 +41,7 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
           createdAt,
         })
       );
-      console.log(loadedPosts[0]._id);
       setData(loadedPosts);
-      console.log(fetchedData);
     };
     fetchPosts();
   }, []);

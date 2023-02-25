@@ -44,7 +44,6 @@ const Register = () => {
       confirmPassword: confirmPasswordIsValid,
     });
     if (!formIsValid) {
-      console.log("INVALID");
       return;
     }
     if (formIsValid) {

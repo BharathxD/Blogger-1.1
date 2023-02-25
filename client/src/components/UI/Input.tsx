@@ -8,10 +8,11 @@ interface Props {
   };
   ref: ForwardedRef<HTMLInputElement>;
   className?: string;
+  value?: string | undefined;
 }
 
-const Input: React.FC<Props> = forwardRef(({ input, className }, ref) => {
-  return <input {...input} ref={ref} className={className} />;
+const Input: React.FC<Props> = forwardRef(({ input, className, value }, ref) => {
+  return <input {...input} ref={ref} className={className} defaultValue={value ?? ""} />;
 });
 
 export default Input;

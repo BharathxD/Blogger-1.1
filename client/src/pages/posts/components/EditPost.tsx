@@ -5,12 +5,14 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import Quill from "../UI/Quill";
+import { id } from "date-fns/locale";
+import { postsData } from "../Posts";
 
 interface Props {
   isLoggedIn: boolean;
 }
 
-const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
+const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (isLoggedIn === false) navigate("/");
@@ -19,6 +21,35 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const summaryInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [fetchState, setFetchState] = useState<{
+    error: boolean;
+    isLoading: boolean;
+  }>({
+    error: false,
+    isLoading: true,
+  });
+  const [data, setData] = useState<postsData | null>();
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        setData(null);
+        const response = await fetch(`http://localhost:3000/api/posts/${id}`);
+        if (!response.ok) throw new Error("Somethign went wrong");
+        const data = await response.json();
+        setData(data[0]);
+        setFetchState({
+          error: false,
+          isLoading: false,
+        });
+      } catch (error: any) {
+        setFetchState({
+          error: true,
+          isLoading: false,
+        });
+      }
+    };
+    fetchPost();
+  }, []);
   const createPostSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     const title = titleInputRef.current!.value;
@@ -30,7 +61,7 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
     form.set("content", textAreaValue);
     form.set("file", file![0]);
     await fetch("http://localhost:3000/api/posts", {
-      method: "POST",
+      method: "GET",
       body: form,
       credentials: "include",
     });
@@ -45,12 +76,14 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
           <Input
             input={{ type: "text", placeholder: "Title" }}
             ref={titleInputRef}
+            value={data?.title ?? ""}
           />
         </div>
         <div className={classes["input-container"]}>
           <Input
             input={{ type: "text", placeholder: "Summary" }}
             ref={summaryInputRef}
+            value={data?.summary ?? ""}
           />
         </div>
         <div className={classes["input-container"]}>
@@ -61,7 +94,7 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
         </div>
         <div className={classes["input-container"]}>
           <Quill
-            textAreaValue={textAreaValue}
+            textAreaValue={data?.content ?? ""}
             setTextAreaValue={setTextAreaValue}
           />
         </div>
@@ -73,4 +106,4 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
   );
 };
 
-export default CreatePost;
+export default EditPost;

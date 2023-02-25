@@ -42,9 +42,7 @@ export const getPostsHandler = async (req: Request, res: Response) => {
 export const findPostHandler = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
-    console.log(postId)
     const post = await findPost({ _id: postId });
-    console.log(post)
     res.status(200).send(post);
   } catch (error: any) {
     res.status(409).send({ message: error });

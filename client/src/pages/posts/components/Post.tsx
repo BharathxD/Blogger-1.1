@@ -20,7 +20,6 @@ const Post: React.FC<Props> = ({
   title,
   createdAt,
 }) => {
-  console.log(_id)
   return (
     <div className={classes.entry}>
       <div className={classes.picture}>

@@ -7,13 +7,13 @@ const quillClass = {
 };
 
 interface Props {
-  textAreaValue: string;
+  textAreaValue: string | undefined;
   setTextAreaValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const formats = [
   "header",
-  "bolid",
+  "bold",
   "italic",
   "underline",
   "strike",
@@ -24,10 +24,11 @@ const formats = [
   "link",
   "image",
 ];
+
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
-    ["bold", "underline", "strike", "blockquote"],
+    [{ bold: !formats.includes("bold") }, "underline", "strike", "blockquote"],
     [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }],
     [{ link: "image" }],
     ["clean"],
@@ -38,7 +39,7 @@ const Quill: React.FC<Props> = ({ textAreaValue, setTextAreaValue }) => {
   return (
     <Fragment>
       <ReactQuill
-        value={textAreaValue}
+        defaultValue={textAreaValue}
         onChange={setTextAreaValue}
         modules={modules}
         formats={formats}
