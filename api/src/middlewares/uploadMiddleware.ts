@@ -1,5 +1,5 @@
 import multer from "multer";
 
-const uploadMiddleware = multer({ dest: "uploads/" });
+const uploadMiddleware = multer({ dest: "src/uploads/" });
 
 export default uploadMiddleware;

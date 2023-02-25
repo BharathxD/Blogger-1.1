@@ -3,6 +3,7 @@ import fs from "fs";
 import { getPosts, uploadPost } from "../services/post.service";
 import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
+import { findUser } from "../services/user.service";
 
 export const postHandler = async (req: Request, res: Response) => {
   if (req.file && req.file.originalname) {
@@ -12,9 +13,12 @@ export const postHandler = async (req: Request, res: Response) => {
     res.json({ extension: extension });
     const newPath = path + "." + extension;
     fs.renameSync(path, newPath);
-    const { name, title, summary, content } = req.body;
+    const { token } = req.cookies;
+    const user = verifyJWT(token);
+    const authorID = (user.decoded as { _id: number })._id;
+    const { title, summary, content } = req.body;
     await uploadPost({
-      author: name,
+      author: authorID,
       title: title,
       summary: summary,
       content: content,

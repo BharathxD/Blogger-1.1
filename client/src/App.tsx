@@ -10,6 +10,7 @@ import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import CreatePost from "./pages/posts/components/CreatePost";
 import { ISessionState } from "./types/Session.types";
+import PostPage from "./pages/posts/components/PostPage";
 
 interface State {
   Session: Pick<ISessionState, "isLoggedIn">;
@@ -31,6 +32,7 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/post/:id" element={<PostPage />} />
       </Routes>
     </Layout>
   );

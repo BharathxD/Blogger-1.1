@@ -15,9 +15,11 @@ export const uploadPost = async (
 };
 
 export const getPosts = async () => {
-  return postModel
+  const post = await postModel
     .find()
-    .populate("author", ["username"])
+    .populate("author", ["name"])
     .sort({ createdAt: -1 })
     .limit(20);
+  console.log(post);
+  return post;
 };

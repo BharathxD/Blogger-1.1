@@ -31,7 +31,8 @@ const Post: React.FC<Props> = ({
         <h6>
           {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
         </h6>
-        <p dangerouslySetInnerHTML={{ __html: content }} />
+        {/* <p dangerouslySetInnerHTML={{ __html: content }} /> */}
+        <p>{summary}</p>
       </div>
     </div>
   );

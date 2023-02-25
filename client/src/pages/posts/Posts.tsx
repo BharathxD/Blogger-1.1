@@ -7,7 +7,7 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-interface postsData {
+export interface postsData {
   id: string;
   content: string;
   author: { name: string };
@@ -51,7 +51,6 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
     <main className={classes.entries}>
       {data &&
         data.map((post: postsData) => {
-          console.log(post.author.name)
           return (
             <Post
               key={post.id}
