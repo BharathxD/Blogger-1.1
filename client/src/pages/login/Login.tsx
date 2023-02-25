@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import classes from "./Login.module.css";
 import { FormEvent, useRef } from "react";
 import Input from "../../components/UI/Input";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../store";
 
 const isEmpty = (value: string) =>
@@ -12,6 +13,15 @@ const isEmpty = (value: string) =>
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoggedIn, username } = useSelector(
+    (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
+      isLoggedIn: state.Session.isLoggedIn,
+      username: state.Session.username,
+    })
+  );
+  useEffect(() => {
+    if (isLoggedIn === true) navigate("/posts");
+  }, [isLoggedIn]);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const [formInputIsValid, setFormInputIsValid] = useState({
@@ -44,9 +54,9 @@ const Login = () => {
         credentials: "include",
       });
       if (response.ok) {
-        navigate("/posts");
         dispatch(login());
         setLoginSuccessful(true);
+        navigate("/posts");
         emailInputRef.current!.value = "";
         passwordInputRef.current!.value = "";
         setRedirect(true);

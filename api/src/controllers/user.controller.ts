@@ -13,8 +13,9 @@ export const registerUserHandler = async (
   try {
     logger.info("Creating the User...");
     const user = await registerUser({ name, email, password });
+    const session = signJWT(user);
     logger.info("The user has been created ✅");
-    res.status(200).send(omit(user, "password"));
+    res.status(200).cookie("token", session).send(omit(user, "password"));
   } catch (error: any) {
     res.status(409).send({ message: error.message });
   }

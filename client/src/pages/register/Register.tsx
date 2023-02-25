@@ -1,7 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Input from "../../components/UI/Input";
 import { IRegister } from "../../types/Register.types";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./Register.module.css";
+import { login } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const validEmail = (value: string) => value.trim().includes("@");
 const isEmpty = (value: string) =>
@@ -10,6 +13,17 @@ const isEmpty = (value: string) =>
 type IData = IRegister | Omit<IRegister, "name" & "confirmPassword">;
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoggedIn, username } = useSelector(
+    (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
+      isLoggedIn: state.Session.isLoggedIn,
+      username: state.Session.username,
+    })
+  );
+  useEffect(() => {
+    if (isLoggedIn === true) navigate("/posts");
+  }, [isLoggedIn]);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -64,10 +78,12 @@ const Register = () => {
       setRegisterStatus(() => {
         return response.status === 200;
       });
+      dispatch(login());
       nameInputRef.current!.value = "";
       emailInputRef.current!.value = "";
       passwordRef.current!.value = "";
       confirmPasswordRef.current!.value = "";
+      navigate("/posts");
     }
   };
   return (

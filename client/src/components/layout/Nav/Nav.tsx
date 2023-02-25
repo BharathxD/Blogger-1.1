@@ -14,12 +14,10 @@ const Nav: React.FC = () => {
       username: state.Session.username,
     })
   );
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        setIsLoading(true);
         const response = await fetch("http://localhost:3000/api/profile", {
           credentials: "include",
         });
@@ -32,12 +30,10 @@ const Nav: React.FC = () => {
         }
       } catch (error: any) {
         console.log(error);
-      } finally {
-        setIsLoading(false);
       }
     };
     checkLoginStatus();
-  }, [dispatch]);
+  }, [dispatch, username, isLoggedIn]);
 
   const logoutHandler = useCallback(() => {
     try {
@@ -69,9 +65,7 @@ const Nav: React.FC = () => {
               <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>
-          <UserButton
-            username={isLoading && username ? "Loading..." : username}
-          />
+          <UserButton username={username} />
         </ul>
       )}
       {!isLoggedIn && (
