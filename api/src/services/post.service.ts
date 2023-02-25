@@ -26,7 +26,12 @@ export const getPosts = async () => {
 export const getOnePost = async (
   postId: mongoose.FilterQuery<PostDocument>
 ) => {
-  const post = await postModel.find({ _id: postId }).lean();
+  const post = await postModel
+    .find({ _id: postId })
+    .find()
+    .populate("author", ["name"])
+    .sort({ createdAt: -1 })
+    .limit(20);
   return post;
 };
 
