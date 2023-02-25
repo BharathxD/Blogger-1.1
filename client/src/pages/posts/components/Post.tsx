@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import classes from "./Post.module.css";
+import { Link } from "react-router-dom";
 
 interface Props {
   _id: string;
@@ -29,13 +30,16 @@ const Post: React.FC<Props> = ({
         />
       </div>
       <div className={classes.details}>
-        <h2>{title}</h2>
-        <h6>
-          {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
-        </h6>
+        <div className={classes["title-box"]}>
+          <Link className={classes.title} to={"/posts/" + _id}>
+            {title}
+          </Link>
+          <h6>
+            {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
+          </h6>
+        </div>
         {/* <p dangerouslySetInnerHTML={{ __html: content }} /> */}
-        <p>{summary}</p>
-        <a href={"/posts/" + _id}>Link</a>
+        <p>{summary.split(" ").splice(0, 50).join(" ")}</p>
       </div>
     </div>
   );

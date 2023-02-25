@@ -27,8 +27,10 @@ const PostPage: React.FC = () => {
     const fetchPost = async () => {
       try {
         setData(null);
-        const response = await fetch(`http://localhost:3000/api/posts/${id}`);
-        if (!response.ok) throw new Error("Somethign went wrong");
+        const response = await fetch(`http://localhost:3000/api/posts/${id}`, {
+          method: "GET",
+        });
+        if (!response.ok) throw new Error("Something went wrong");
         const data = await response.json();
         setData(data[0]);
         setFetchState({
@@ -43,40 +45,31 @@ const PostPage: React.FC = () => {
       }
     };
     fetchPost();
-  }, []);
-  if (fetchState.error && !fetchState.isLoading) {
-    return (
-      <main>
-        <p>Something went wrong</p>
-      </main>
-    );
-  }
-  if (fetchState.isLoading) {
-    return (
-      <main>
-        <p>Loading...</p>
-      </main>
-    );
-  }
+  }, [id]);
   return (
     <main>
-      {userId === data?.author._id && (
-        <Link to={`/posts/edit/${data._id}`}>Edit</Link>
+      {fetchState.isLoading && <p>Loading</p>}
+      {!fetchState.isLoading && (
+        <>
+          {userId === data!.author._id && (
+            <Link to={`/posts/edit/${id}`}>Edit</Link>
+          )}
+          <div className={classes.picture}>
+            <img
+              alt="image"
+              src={"http://localhost:3000/" + data!.cover.replace("src/", "")}
+            />
+          </div>
+          <div className={classes.details}>
+            <h2>{data!.title}</h2>
+            <h6>
+              {data!.author.name} at
+              {format(new Date(data!.createdAt), "MMM d, yyyy HH:mm")}
+            </h6>
+            <p dangerouslySetInnerHTML={{ __html: data!.content }} />
+          </div>
+        </>
       )}
-      <div className={classes.picture}>
-        <img
-          alt="image"
-          src={"http://localhost:3000/" + data?.cover.replace("src/", "")}
-        />
-      </div>
-      <div className={classes.details}>
-        <h2>{data!.title}</h2>
-        <h6>
-          {data!.author.name} at{" "}
-          {format(new Date(data!.createdAt), "MMM d, yyyy HH:mm")}
-        </h6>
-        <p dangerouslySetInnerHTML={{ __html: data!.content }} />
-      </div>
     </main>
   );
 };

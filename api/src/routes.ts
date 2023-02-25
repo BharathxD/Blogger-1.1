@@ -9,10 +9,12 @@ import {
 } from "./controllers/user.controller";
 import {
   editPostHandler,
+  getOnePostHandler,
   getPostsHandler,
   postHandler,
 } from "./controllers/post.controller";
 import uploadMiddleware from "./middlewares/uploadMiddleware";
+import { getOnePost } from "./services/post.service";
 
 const route = (app: Express) => {
   app.get("/healthcheck", (req: Request, res: Response) => {
@@ -24,8 +26,12 @@ const route = (app: Express) => {
   app.get("/api/logout", logoutHandler);
   app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
   app.get("/api/posts", getPostsHandler);
-  app.get("/api/posts/:postId", getPostsHandler);
-  app.put("/api/posts/edit/:postId", uploadMiddleware.single('file'), editPostHandler);
+  app.get("/api/posts/:postId", getOnePostHandler);
+  app.put(
+    "/api/posts/edit/:postId",
+    uploadMiddleware.single("file"),
+    editPostHandler
+  );
 };
 
 export default route;

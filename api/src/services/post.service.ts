@@ -23,6 +23,13 @@ export const getPosts = async () => {
   return post;
 };
 
+export const getOnePost = async (
+  postId: mongoose.FilterQuery<PostDocument>
+) => {
+  const post = await postModel.find({ _id: postId }).lean();
+  return post;
+};
+
 export const findPost = async (query: mongoose.FilterQuery<PostDocument>) => {
   try {
     const post = await postModel.findOne(query).lean();

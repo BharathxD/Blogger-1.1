@@ -21,6 +21,8 @@
 
 .entry img {
   border-radius: 20px;
+  width: 400px;
+  height: 200px;
 }
 
 .entry .details {
@@ -29,9 +31,18 @@
   width: 80%;
 }
 
-.entry h2 {
+.entry .title {
   font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.entry .title-box {
   margin-bottom: 10px;
+}
+
+.entry h6 {
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .entry p {

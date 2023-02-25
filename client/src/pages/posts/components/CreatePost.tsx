@@ -59,10 +59,7 @@ const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
           />
         </div>
         <div className={classes["input-container"]}>
-          <Quill
-            value={textAreaValue}
-            onChange={setTextAreaValue}
-          />
+          <Quill value={textAreaValue} onChange={setTextAreaValue} />
         </div>
         <div className={classes["form-actions"]}>
           <button type="submit">Submit</button>

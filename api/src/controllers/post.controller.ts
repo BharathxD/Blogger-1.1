@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import fs from "fs";
 import {
   findPost,
+  getOnePost,
   getPosts,
   updatePost,
   uploadPost,
@@ -44,6 +45,17 @@ export const getPostsHandler = async (req: Request, res: Response) => {
   }
 };
 
+export const getOnePostHandler = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const posts = await getOnePost({ _id: postId });
+    res.status(200).send(posts);
+  } catch (error: any) {
+    logger.error(error);
+    res.status(409).send({ message: error });
+  }
+};
+
 export const findPostHandler = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -70,9 +82,9 @@ export const editPostHandler = async (req: Request, res: Response) => {
       throw new Error("User is not authenticated");
     }
     const userId = (user.decoded as { _id: string })._id;
-    const requestedPost = await findPost({author: userId})
+    const requestedPost = await findPost({ author: userId });
     if (!requestedPost) {
-      throw new Error("The user is not authenticated to do this operation")
+      throw new Error("The user is not authenticated to do this operation");
     }
     const { postId } = req.params;
     const update = req.body;
