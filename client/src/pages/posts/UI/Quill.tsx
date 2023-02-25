@@ -7,8 +7,8 @@ const quillClass = {
 };
 
 interface Props {
-  textAreaValue: string | undefined;
-  setTextAreaValue: React.Dispatch<React.SetStateAction<string>>;
+  value: string;
+  onChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const formats = [
@@ -35,12 +35,12 @@ const modules = {
   ],
 };
 
-const Quill: React.FC<Props> = ({ textAreaValue, setTextAreaValue }) => {
+const Quill: React.FC<Props> = ({ value, onChange }) => {
   return (
     <Fragment>
       <ReactQuill
-        defaultValue={textAreaValue}
-        onChange={setTextAreaValue}
+        value={value}
+        onChange={onChange}
         modules={modules}
         formats={formats}
         style={quillClass}

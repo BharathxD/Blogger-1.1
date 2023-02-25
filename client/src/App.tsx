@@ -34,7 +34,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/posts/:id" element={<PostPage />} />
-        <Route path="/posts/edit/:id" element={<EditPost isLoggedIn={isLoggedIn}/>} />
+        <Route
+          path="/posts/edit/:id"
+          element={<EditPost isLoggedIn={isLoggedIn} />}
+        />
       </Routes>
     </Layout>
   );

@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import classes from "./Post.module.css";
 
 interface Props {
-  _id: string,
+  _id: string;
   content: string;
   cover: string;
   author: string;
@@ -35,7 +35,7 @@ const Post: React.FC<Props> = ({
         </h6>
         {/* <p dangerouslySetInnerHTML={{ __html: content }} /> */}
         <p>{summary}</p>
-        <a href={"/posts/"+_id}>Link</a>
+        <a href={"/posts/" + _id}>Link</a>
       </div>
     </div>
   );

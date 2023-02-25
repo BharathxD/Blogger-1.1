@@ -36,6 +36,7 @@ const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
         const response = await fetch(`http://localhost:3000/api/posts/${id}`);
         if (!response.ok) throw new Error("Somethign went wrong");
         const data = await response.json();
+        setTextAreaValue(data[0].content);
         setData(data[0]);
         setFetchState({
           error: false,
@@ -94,8 +95,8 @@ const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
         </div>
         <div className={classes["input-container"]}>
           <Quill
-            textAreaValue={data?.content ?? ""}
-            setTextAreaValue={setTextAreaValue}
+            value={textAreaValue}
+            onChange={setTextAreaValue}
           />
         </div>
         <div className={classes["form-actions"]}>

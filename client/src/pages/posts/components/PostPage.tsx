@@ -60,7 +60,9 @@ const PostPage: React.FC = () => {
   }
   return (
     <main>
-      {userId === data?.author._id && <Link to={`/posts/edit/${data._id}`}>Edit</Link>}
+      {userId === data?.author._id && (
+        <Link to={`/posts/edit/${data._id}`}>Edit</Link>
+      )}
       <div className={classes.picture}>
         <img
           alt="image"

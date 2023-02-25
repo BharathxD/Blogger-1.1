@@ -26,7 +26,7 @@ const Nav: React.FC = () => {
         const data = await response.json();
         if (data.name) {
           dispatch(login());
-          dispatch(setUsername({ userId: data._id,username: data.name }));
+          dispatch(setUsername({ userId: data._id, username: data.name }));
         } else {
           dispatch(logout());
         }
@@ -69,7 +69,9 @@ const Nav: React.FC = () => {
               <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>
-          <UserButton username={isLoading && username ? "Loading..." : username} />
+          <UserButton
+            username={isLoading && username ? "Loading..." : username}
+          />
         </ul>
       )}
       {!isLoggedIn && (

@@ -51,8 +51,5 @@ export const findPostHandler = async (req: Request, res: Response) => {
 
 export const editPostHandler = async (req: Request, res: Response) => {
   try {
-    
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};

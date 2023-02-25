@@ -1,6 +1,4 @@
-import {
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ISessionState {
@@ -18,7 +16,6 @@ const initialSessionState: ISessionState = {
   isLoggedIn: false,
 };
 
-
 export const Session = createSlice({
   name: "Session",
   initialState: initialSessionState,
@@ -30,8 +27,11 @@ export const Session = createSlice({
       return { ...state, isLoggedIn: false };
     },
     setUsername(state, action: PayloadAction<ISessionAction>) {
-      return { ...state, userId: action.payload.userId, username: action.payload.username };
+      return {
+        ...state,
+        userId: action.payload.userId,
+        username: action.payload.username,
+      };
     },
   },
 });
-

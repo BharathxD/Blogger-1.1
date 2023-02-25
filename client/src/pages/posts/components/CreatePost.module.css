@@ -1,5 +1,5 @@
 .create-post {
-    min-height: 81vh;
+  min-height: 81vh;
 }
 
 .input-container {
@@ -13,20 +13,20 @@
 }
 
 .quill {
-    background-color: #232323;
+  background-color: #232323;
 }
 
 .form-actions {
-    text-align: center;
+  text-align: center;
 }
 
 .form-actions button {
-    width: 300px;
-    margin-bottom: 5px;
-    outline: 1px solid #232323;
+  width: 300px;
+  margin-bottom: 5px;
+  outline: 1px solid #232323;
 }
 
 .form-actions button:hover {
-    outline: none;
-    border: 1px solid #f4f4f4;
+  outline: none;
+  border: 1px solid #f4f4f4;
 }
