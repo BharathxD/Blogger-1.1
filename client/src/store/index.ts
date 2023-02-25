@@ -1,10 +1,8 @@
 import {
   PayloadAction,
   configureStore,
-  createAsyncThunk,
 } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { ThunkAction } from "redux-thunk";
 
 interface ISessionState {
   username: string;

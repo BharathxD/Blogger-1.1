@@ -1,6 +1,6 @@
 import classes from "./Login.module.css";
 import { FormEvent, useRef } from "react";
-import Input from "../UI/Input";
+import Input from "../../components/UI/Input";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";

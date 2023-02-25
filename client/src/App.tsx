@@ -4,11 +4,11 @@ import "./App.css";
 import { useSelector } from "react-redux";
 
 import Layout from "./components/layout/Layout";
-import Posts from "./components/post/Posts";
-import Login from "./components/login/Login";
-import Register from "./components/register/Register";
-import Home from "./components/home/Home";
-import CreatePost from "./components/CreatePost/CreatePost";
+import Posts from "./pages/posts/Posts";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Home from "./pages/home/Home";
+import CreatePost from "./pages/posts/components/CreatePost";
 
 function App() {
   const { isLoggedIn, username } = useSelector(

@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import Input from "../UI/Input";
+import Input from "../../components/UI/Input";
 import { IRegister } from "../../types/Register.types";
 import classes from "./Register.module.css";
 

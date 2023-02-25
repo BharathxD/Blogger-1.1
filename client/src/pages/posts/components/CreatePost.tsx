@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import classes from "./CreatePost.module.css";
-import Input from "../UI/Input";
+import Input from "../../../components/UI/Input";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
