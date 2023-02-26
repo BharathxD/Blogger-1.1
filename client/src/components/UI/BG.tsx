@@ -16,11 +16,7 @@ const BG: React.FC<BG> = ({ picture }) => {
   };
   return (
     <div className={classes.bg}>
-      <img
-        alt={"bg"}
-        className={classes.blur}
-        style={style}
-      />
+      <img alt={"bg"} className={classes.blur} style={style} />
     </div>
   );
 };

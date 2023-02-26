@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import path from "path";
 import fs from "fs";
 import {
   deletePost,
@@ -10,6 +11,7 @@ import {
 } from "../services/post.service";
 import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
+import { deleteFile } from "../middlewares/deleteFile";
 
 export const postHandler = async (req: Request, res: Response) => {
   if (req.file && req.file.originalname) {
@@ -79,6 +81,10 @@ export const deletePostHandler = async (req: Request, res: Response) => {
     if (!requestedPost) {
       throw new Error("The user is not authenticated to do this operation");
     }
+    deleteFile({
+      directoryPath: "uploads",
+      fileName: requestedPost.cover.replace("src/uploads/", ""),
+    });
     const response = await deletePost({ _id: postId });
     res.status(200).send({ response });
   } catch (error: any) {
@@ -120,8 +126,17 @@ export const editPostHandler = async (req: Request, res: Response) => {
     if (!requestedPost) {
       throw new Error("The user is not authenticated to do this operation");
     }
+    deleteFile({
+      directoryPath: "uploads",
+      fileName: requestedPost.cover.replace("src/uploads/", ""),
+    });
     const { postId } = req.params;
-    const update = req.body;
+    const update = {
+      title: req.body.title,
+      summary: req.body.summary,
+      content: req.body.content,
+      cover: newPath,
+    };
     const updatedPost = await updatePost({ _id: postId }, update);
     res.status(200).send(updatedPost);
   } catch (error: any) {
