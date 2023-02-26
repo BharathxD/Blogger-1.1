@@ -30,3 +30,11 @@
   outline: none;
   border: 1px solid #f4f4f4;
 }
+
+.invalid-container {
+  background-color: rgb(255, 74, 74);
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+}

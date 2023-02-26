@@ -70,7 +70,7 @@ const Login = () => {
   };
   return (
     <main className={classes["login-page"]}>
-      <BG picture={giyuu} blur={true} />
+      <BG picture={giyuu} />
       <FormCard>
         <form onSubmit={submitLoginFormHandler}>
           {loginSuccessful === false && (
