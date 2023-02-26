@@ -53,6 +53,7 @@ const PostPage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:3000/api/posts/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("The post couldn't be deleted");

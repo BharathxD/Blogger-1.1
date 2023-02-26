@@ -8,9 +8,8 @@ import {
   updatePost,
   uploadPost,
 } from "../services/post.service";
-import { signJWT, verifyJWT } from "../utils/jwt.utils";
+import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
-import { findUser } from "../services/user.service";
 
 export const postHandler = async (req: Request, res: Response) => {
   if (req.file && req.file.originalname) {
@@ -59,9 +58,29 @@ export const getOnePostHandler = async (req: Request, res: Response) => {
 
 export const deletePostHandler = async (req: Request, res: Response) => {
   try {
+    const { token } = req.cookies;
+    //? If client doesn't provide the token, the user is not authenticated
+    if (!token) {
+      throw new Error("The user is not authenticated");
+    }
+    const user = verifyJWT(token);
+    //? If verifyJWT doesn't return the token validity, the provided token is not valid
+    if (!user) {
+      throw new Error("Found no users");
+    }
     const { postId } = req.params;
-    const response = await deletePost({_id: postId});
-    res.status(200).send({ message: "Ok" });
+    const post = await findPost({ _id: postId });
+    //? If findPost doesn't return any post, it throws new error that the post does;t exist
+    if (!post) {
+      throw new Error("The post doesn't exist");
+    }
+    const postAuthorId = post.author;
+    const requestedPost = await findPost({ author: postAuthorId });
+    if (!requestedPost) {
+      throw new Error("The user is not authenticated to do this operation");
+    }
+    const response = await deletePost({ _id: postId });
+    res.status(200).send({ response });
   } catch (error: any) {
     res.status(409).send({ message: error.message });
   }
@@ -88,9 +107,13 @@ export const editPostHandler = async (req: Request, res: Response) => {
       fs.renameSync(path, newPath);
     }
     const { token } = req.cookies;
+    //? If client doesn't provide the token, the user is not authenticated
+    if (!token) {
+      throw new Error("The user is not authenticated");
+    }
     const user = verifyJWT(token);
     if (!user) {
-      throw new Error("User is not authenticated");
+      throw new Error("The request is invalid");
     }
     const userId = (user.decoded as { _id: string })._id;
     const requestedPost = await findPost({ author: userId });

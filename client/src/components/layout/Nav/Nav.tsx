@@ -17,7 +17,6 @@ const Nav: React.FC = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      console.log("RUNNING");
       try {
         const response = await fetch("http://localhost:3000/api/profile", {
           credentials: "include",
@@ -26,8 +25,6 @@ const Nav: React.FC = () => {
         if (data.name) {
           dispatch(login());
           dispatch(setUsername({ userId: data._id, username: data.name }));
-        } else {
-          dispatch(logout());
         }
       } catch (error: any) {
         console.log(error);
