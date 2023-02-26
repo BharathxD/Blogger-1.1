@@ -26,22 +26,29 @@ const Post: React.FC<Props> = ({
       <div className={classes.picture}>
         <img
           alt="image"
-          src={"http://localhost:3000/" + cover.replace("src/", "")}
+          style={{
+            backgroundImage: `url(http://localhost:3000/${cover.replace(
+              "src/",
+              ""
+            )})`,
+          }}
+          className={classes.image}
         />
       </div>
       <div className={classes.details}>
         <div className={classes["title-box"]}>
           <Link className={classes.cta} to={"/posts/" + _id}>
             <span className={classes["hover-underline-animation"]}>
-            {title}
+              {title}
             </span>
           </Link>
           <h6>
-            {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
+            <span className={classes.author}>
+              {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
+            </span>
           </h6>
         </div>
-        {/* <p dangerouslySetInnerHTML={{ __html: content }} /> */}
-        <p>{summary.split(" ").splice(0, 50).join(" ")}</p>
+        <p>{summary.split(" ").splice(0, 60).join(" ")}</p>
       </div>
     </div>
   );

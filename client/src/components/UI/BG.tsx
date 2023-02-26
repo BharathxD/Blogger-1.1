@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./BG.module.css";
 
 interface BG {
-  picture: string;
+  picture?: string;
 }
 
 const BG: React.FC<BG> = ({ picture }) => {

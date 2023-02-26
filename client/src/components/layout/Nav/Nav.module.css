@@ -65,3 +65,10 @@ a:hover {
 .active:focus {
   color: #c2c2c2;
 }
+
+.logout:hover {
+  color: #262626;
+  background-color: rgb(255, 81, 81);
+  background: #ff6666;
+  box-shadow: inset -26px 26px 53px #e35b5b, inset 26px -26px 53px #ff7171;
+}

@@ -20,9 +20,13 @@
 }
 
 .entry img {
+  background-color: #404040;
   border-radius: 20px;
   width: 400px;
-  height: 200px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .entry .details {
@@ -34,16 +38,18 @@
 
 .entry .title {
   font-size: 1.5rem;
-  margin-bottom: 2px;
+  margin-bottom: 2.5px;
 }
 
 .entry .title-box {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .entry h6 {
   font-size: 0.9rem;
   margin: 0;
+  margin-top: 10px;
+  margin-left: -2.5px;
 }
 
 .entry p {
@@ -87,4 +93,10 @@
 
 .cta:hover {
   color: #f4f4f4;
+}
+
+.author {
+  background-color: #25252584;
+  border-radius: 10px;
+  padding: 5px;
 }

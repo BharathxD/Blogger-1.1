@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import classes from "./CreatePost.module.css";
 import Input from "../../../components/UI/Input";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Quill from "../UI/Quill";
-import { id } from "date-fns/locale";
 import { postsData } from "../Posts";
+import FormCard from "../../../components/UI/FormCard";
 
 interface Props {
   isLoggedIn: boolean;
@@ -75,37 +74,39 @@ const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
   };
   return (
     <main className={classes["create-post"]}>
-      <form
-        className={classes["form-container"]}
-        onSubmit={createPostSubmitHandler}
-      >
-        <div className={classes["input-container"]}>
-          <Input
-            input={{ type: "text", placeholder: "Title" }}
-            ref={titleInputRef}
-            value={data?.title ?? ""}
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <Input
-            input={{ type: "text", placeholder: "Summary" }}
-            ref={summaryInputRef}
-            value={data?.summary ?? ""}
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <Input
-            input={{ type: "file", placeholder: "File" }}
-            ref={fileInputRef}
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <Quill value={textAreaValue} onChange={setTextAreaValue} />
-        </div>
-        <div className={classes["form-actions"]}>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <FormCard>
+        <form
+          className={classes["form-container"]}
+          onSubmit={createPostSubmitHandler}
+        >
+          <div className={classes["input-container"]}>
+            <Input
+              input={{ type: "text", placeholder: "Title" }}
+              ref={titleInputRef}
+              value={data?.title ?? ""}
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <Input
+              input={{ type: "text", placeholder: "Summary" }}
+              ref={summaryInputRef}
+              value={data?.summary ?? ""}
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <Input
+              input={{ type: "file", placeholder: "File" }}
+              ref={fileInputRef}
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <Quill value={textAreaValue} onChange={setTextAreaValue} />
+          </div>
+          <div className={classes["form-actions"]}>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </FormCard>
     </main>
   );
 };

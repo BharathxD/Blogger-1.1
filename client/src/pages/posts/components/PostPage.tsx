@@ -62,7 +62,7 @@ const PostPage: React.FC = () => {
       console.log(error);
     }
   };
-  if (fetchState.isLoading && fetchState.error) {
+  if (fetchState.isLoading || fetchState.error) {
     return (
       <main>
         <Loader />

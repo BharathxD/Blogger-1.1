@@ -17,6 +17,7 @@ const Nav: React.FC = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
+      console.log("RUNNING");
       try {
         const response = await fetch("http://localhost:3000/api/profile", {
           credentials: "include",
@@ -67,7 +68,9 @@ const Nav: React.FC = () => {
             <a
               href="#"
               onClick={logoutHandler}
-              className={classes.anchor + " " + classes.neumorphic}
+              className={
+                classes.anchor + " " + classes.neumorphic + " " + classes.logout
+              }
             >
               <i className="bi bi-box-arrow-right"></i>
             </a>

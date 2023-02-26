@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Posts.module.css";
 import Post from "./components/Post";
+import Loader from "../../components/UI/Loader";
 
 interface Props {
   isLoggedIn: boolean;
@@ -48,6 +49,13 @@ const Posts: React.FC<Props> = ({ isLoggedIn }) => {
     };
     fetchPosts();
   }, []);
+  if (!data) {
+    return (
+      <main>
+        <Loader />
+      </main>
+    );
+  }
   return (
     <main className={classes.entries}>
       {data &&
