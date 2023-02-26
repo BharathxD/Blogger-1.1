@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import classes from "./PostPage.module.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loader from "../../../components/UI/Loader";
 
 const PostPage: React.FC = () => {
   const { id } = useParams();
@@ -61,8 +62,12 @@ const PostPage: React.FC = () => {
       console.log(error);
     }
   };
-  if (!data) {
-    return <h1>Something went wrong.</h1>;
+  if (fetchState.isLoading && fetchState.error) {
+    return (
+      <main>
+        <Loader />
+      </main>
+    );
   }
   return (
     <main>

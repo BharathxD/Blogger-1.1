@@ -60,3 +60,31 @@
     width: 100%;
   }
 }
+
+.hover-underline-animation {
+  position: relative;
+  font-size: 1.5rem;
+  padding-bottom: 2px;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f4f4f4;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.cta:hover {
+  color: #f4f4f4;
+}

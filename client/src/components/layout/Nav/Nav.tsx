@@ -56,12 +56,19 @@ const Nav: React.FC = () => {
       {isLoggedIn && (
         <ul className={classes.loggedin}>
           <li>
-            <NavLink to="/posts/create" className={classes.anchor}>
+            <NavLink
+              to="/posts/create"
+              className={classes.anchor + " " + classes.neumorphic}
+            >
               New Post
             </NavLink>
           </li>
           <li>
-            <a href="#" onClick={logoutHandler} className={classes.anchor}>
+            <a
+              href="#"
+              onClick={logoutHandler}
+              className={classes.anchor + " " + classes.neumorphic}
+            >
               <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>

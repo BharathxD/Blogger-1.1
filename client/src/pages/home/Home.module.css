@@ -51,3 +51,15 @@
     font-size: 4rem;
   }
 }
+
+.bg {
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  filter: brightness(45%);
+  object-fit: cover;
+}

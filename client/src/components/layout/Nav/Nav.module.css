@@ -6,6 +6,10 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .nav .loggedin {
@@ -18,8 +22,11 @@
   border-radius: 10px;
 }
 
-.anchor:hover {
-  outline: 1px solid #c2c2c2;
+.neumorphic:hover {
+  transition: 0.5s;
+  border-radius: 10px;
+  background: #333333;
+  box-shadow: inset -26px 26px 53px #262626, inset 26px -26px 53px #404040;
 }
 
 .nav .logo {
@@ -47,6 +54,7 @@ a {
   color: #f4f4f4;
   text-transform: capitalize;
   text-decoration: none;
+  border-radius: 50px;
 }
 
 a:hover {

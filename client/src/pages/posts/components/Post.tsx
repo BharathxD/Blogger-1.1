@@ -31,8 +31,10 @@ const Post: React.FC<Props> = ({
       </div>
       <div className={classes.details}>
         <div className={classes["title-box"]}>
-          <Link className={classes.title} to={"/posts/" + _id}>
+          <Link className={classes.cta} to={"/posts/" + _id}>
+            <span className={classes["hover-underline-animation"]}>
             {title}
+            </span>
           </Link>
           <h6>
             {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
