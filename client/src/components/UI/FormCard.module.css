@@ -1,0 +1,8 @@
+.form-card {
+  height: max-content;
+  text-align: center;
+  border: 1px solid #adadad;
+  background-color: #adadad23;
+  border-radius: 5px;
+  backdrop-filter: blur(20px);
+}

@@ -20,16 +20,9 @@
   align-items: center;
   flex-direction: column;
   height: 81vh;
+  gap: 10px;
 }
 
-form {
-  height: max-content;
-  text-align: center;
-  border: 1px solid #adadad;
-  background-color: #adadad23;
-  border-radius: 10px;
-}
-
-.form-validation {
+.login-page form input {
   margin-bottom: 10px;
 }

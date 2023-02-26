@@ -7,5 +7,18 @@
   left: 0;
   right: 0;
   filter: brightness(45%);
-  object-fit: cover;
+}
+
+.blur {
+  animation: blur 0.5s reverse;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blur {
+  0% {
+    -webkit-filter: blur(0px);
+  }
+  100% {
+    -webkit-filter: blur(7px);
+  }
 }

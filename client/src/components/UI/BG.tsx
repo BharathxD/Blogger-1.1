@@ -6,9 +6,21 @@ interface BG {
 }
 
 const BG: React.FC<BG> = ({ picture }) => {
+  const style = {
+    backgroundImage: `url(${picture})`,
+    height: "100%",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    filter: "blur(8px)",
+  };
   return (
     <div className={classes.bg}>
-      <img src={picture} alt={"bg"} />
+      <img
+        alt={"bg"}
+        className={classes.blur}
+        style={style}
+      />
     </div>
   );
 };

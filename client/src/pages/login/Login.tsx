@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../store";
-
+import FormCard from "../../components/UI/FormCard";
+import BG from "../../components/UI/BG";
+import giyuu from "../../assets/giyuu.jpg";
 
 const isEmpty = (value: string) =>
   value.trim() === "" && value.trim().length === 0;
@@ -68,39 +70,41 @@ const Login = () => {
   };
   return (
     <main className={classes["login-page"]}>
-
-      <form onSubmit={submitLoginFormHandler}>
-        {loginSuccessful === false && (
-          <div className={classes["login-error"]}>
-            Username or Password is incorrect
+      <BG picture={giyuu} blur={true} />
+      <FormCard>
+        <form onSubmit={submitLoginFormHandler}>
+          {loginSuccessful === false && (
+            <div className={classes["login-error"]}>
+              Username or Password is incorrect
+            </div>
+          )}
+          <div className={classes["form-validation"]}>
+            <Input
+              ref={emailInputRef}
+              input={{ type: "text", placeholder: "Username" }}
+            />
+            {!formInputIsValid.email && (
+              <div className={classes["invalid-container"]}>
+                <p>Email can't be empty</p>
+              </div>
+            )}
           </div>
-        )}
-        <div className={classes["form-validation"]}>
-          <Input
-            ref={emailInputRef}
-            input={{ type: "text", placeholder: "Username" }}
-          />
-          {!formInputIsValid.email && (
-            <div className={classes["invalid-container"]}>
-              <p>Email can't be empty</p>
-            </div>
-          )}
-        </div>
-        <div className={classes["form-validation"]}>
-          <Input
-            ref={passwordInputRef}
-            input={{ type: "password", placeholder: "Password" }}
-          />
-          {!formInputIsValid.password && (
-            <div className={classes["invalid-container"]}>
-              <p>Password can't be empty</p>
-            </div>
-          )}
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+          <div className={classes["form-validation"]}>
+            <Input
+              ref={passwordInputRef}
+              input={{ type: "password", placeholder: "Password" }}
+            />
+            {!formInputIsValid.password && (
+              <div className={classes["invalid-container"]}>
+                <p>Password can't be empty</p>
+              </div>
+            )}
+          </div>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </FormCard>
     </main>
   );
 };
