@@ -33,6 +33,7 @@ const Nav: React.FC = () => {
             profile: data.profile,
           })
         );
+        setTimeout(() => {}, 100)
         dispatch(login());
       } catch (error: any) {
         console.log(error);
