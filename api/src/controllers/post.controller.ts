@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import path from "path";
 import fs from "fs";
 import {
   deletePost,
@@ -12,8 +11,18 @@ import {
 import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
 import { deleteFile } from "../middlewares/deleteFile";
+import {
+  CreatePostInput,
+  DeletePostInput,
+  EditPostInput,
+  GetOnePostInput,
+  GetPostsInput,
+} from "../schema/post.schema";
 
-export const postHandler = async (req: Request, res: Response) => {
+export const postHandler = async (
+  req: Request<{}, {}, CreatePostInput["body"]>,
+  res: Response
+) => {
   if (req.file && req.file.originalname) {
     const { originalname, path } = req.file;
     const parts = originalname.split(".");
@@ -37,7 +46,10 @@ export const postHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const getPostsHandler = async (req: Request, res: Response) => {
+export const getPostsHandler = async (
+  req: Request<GetPostsInput["params"]>,
+  res: Response
+) => {
   try {
     const posts = await getPosts();
     res.status(200).send(posts);
@@ -47,18 +59,24 @@ export const getPostsHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const getOnePostHandler = async (req: Request, res: Response) => {
+export const getOnePostHandler = async (
+  req: Request<GetOnePostInput["params"]>,
+  res: Response
+) => {
   try {
     const { postId } = req.params;
-    const posts = await getOnePost({ _id: postId });
-    res.status(200).send(posts);
+    const post = await getOnePost({ _id: postId });
+    res.status(200).send(post);
   } catch (error: any) {
     logger.error(error);
     res.status(409).send({ message: error });
   }
 };
 
-export const deletePostHandler = async (req: Request, res: Response) => {
+export const deletePostHandler = async (
+  req: Request<DeletePostInput["params"]>,
+  res: Response
+) => {
   try {
     const { token } = req.cookies;
     //? If client doesn't provide the token, the user is not authenticated
@@ -92,7 +110,10 @@ export const deletePostHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const findPostHandler = async (req: Request, res: Response) => {
+export const findPostHandler = async (
+  req: Request<GetOnePostInput["params"]>,
+  res: Response
+) => {
   try {
     const { postId } = req.params;
     const post = await findPost({ _id: postId });
@@ -102,7 +123,10 @@ export const findPostHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const editPostHandler = async (req: Request, res: Response) => {
+export const editPostHandler = async (
+  req: Request<EditPostInput["params"]>,
+  res: Response
+) => {
   try {
     let newPath = null;
     if (req.file) {

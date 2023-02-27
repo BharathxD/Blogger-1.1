@@ -15,7 +15,14 @@ import {
   postHandler,
 } from "./controllers/post.controller";
 import uploadMiddleware from "./middlewares/uploadMiddleware";
-import { getOnePost } from "./services/post.service";
+import {
+  createPostSchema,
+  deletePostSchema,
+  editPostSchema,
+  getOnePostSchema,
+  getPostsSchema,
+} from "./schema/post.schema";
+import requireUser from "./middlewares/requireUser.middleware";
 
 const route = (app: Express) => {
   app.get("/healthcheck", (req: Request, res: Response) => {
@@ -25,13 +32,31 @@ const route = (app: Express) => {
   app.post("/api/login", validate(loginUserSchema), loginUserHandler);
   app.get("/api/profile", profileHandler);
   app.get("/api/logout", logoutHandler);
-  app.post("/api/posts", uploadMiddleware.single("file"), postHandler);
-  app.get("/api/posts", getPostsHandler);
-  app.get("/api/posts/:postId", getOnePostHandler);
-  app.delete("/api/posts/:postId", deletePostHandler);
+  app.post(
+    "/api/posts",
+    uploadMiddleware.single("file"),
+    [requireUser, validate(createPostSchema)],
+    postHandler
+  );
+
+  app.get("/api/posts", requireUser, getPostsHandler);
+
+  app.get(
+    "/api/posts/:postId",
+    [requireUser, validate(getOnePostSchema)],
+    getOnePostHandler
+  );
+
+  app.delete(
+    "/api/posts/:postId",
+    [requireUser, validate(deletePostSchema)],
+    deletePostHandler
+  );
+
   app.put(
     "/api/posts/edit/:postId",
     uploadMiddleware.single("file"),
+    [requireUser, validate(editPostSchema)],
     editPostHandler
   );
 };

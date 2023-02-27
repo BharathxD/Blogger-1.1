@@ -19,6 +19,7 @@ const Input: React.FC<Props> = forwardRef(
         ref={ref}
         className={className}
         defaultValue={value ?? ""}
+        required
       />
     );
   }
