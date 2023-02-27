@@ -1,13 +1,16 @@
 import classes from "./UserButton.module.css";
 
-const UserButton: React.FC<{ username: string | undefined }> = ({
-  username,
-}) => {
+const UserButton: React.FC<{
+  username: string | undefined;
+  profile: string;
+}> = ({ username, profile }) => {
   return (
-    <li>
-      <span className={classes.username}>
-        {username}&nbsp; <i className="bi bi-person-circle"></i>
-      </span>
+    <li className={classes.username}>
+      <span>{username}&nbsp;</span>
+      <img
+        src={`http://localhost:3000/${profile.replace("src/", "")}`}
+        className={classes["profile"]}
+      />
     </li>
   );
 };

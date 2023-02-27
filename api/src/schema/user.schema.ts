@@ -1,9 +1,12 @@
-import { object, string, TypeOf } from "zod";
+import { any, object, string, TypeOf } from "zod";
 
 export const registerUserSchema = object({
   body: object({
     name: string({
       required_error: "Name is required",
+    }),
+    file: any({
+      required_error: "The file is required",
     }),
     password: string({
       required_error: "Name is required",

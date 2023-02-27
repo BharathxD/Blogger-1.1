@@ -30,10 +30,12 @@ const Register = () => {
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const profileRef = useRef<HTMLInputElement | null>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [formInputIsValid, setFormInputIsValid] = useState({
     name: true,
     email: true,
+    profile: true,
     emailIsValid: true,
     password: true,
     confirmPassword: true,
@@ -45,6 +47,7 @@ const Register = () => {
     e.preventDefault();
     const name = nameInputRef.current!.value;
     const email = emailInputRef.current!.value;
+    const profile = profileRef.current!.files;
     const password = passwordRef.current!.value;
     const confirmPassword = confirmPasswordRef.current!.value;
     const nameIsValid = !isEmpty(name);
@@ -56,6 +59,7 @@ const Register = () => {
     setFormInputIsValid({
       name: nameIsValid,
       email: emailIsValid,
+      profile: profile ? true : false,
       emailIsValid: emailIsValid,
       password: passwordIsValid,
       confirmPassword: confirmPasswordIsValid,
@@ -64,17 +68,16 @@ const Register = () => {
       return;
     }
     if (formIsValid) {
-      const obtainedData = {
-        name: name,
-        email: email,
-        password: password,
-        passwordConfirmation: confirmPassword,
-      };
       setRegisterStatus(null);
+      const form = new FormData();
+      form.set("name", name);
+      form.set("email", email);
+      form.set("file", profile![0]);
+      form.set("password", password);
+      form.set("passwordConfirmation", confirmPassword);
       const response = await fetch("http://localhost:3000/api/register", {
         method: "POST",
-        body: JSON.stringify(obtainedData),
-        headers: { "Content-Type": "application/json" },
+        body: form,
         credentials: "include",
       });
       setData(data);
@@ -108,6 +111,19 @@ const Register = () => {
             {!formInputIsValid.name && (
               <div className={classes["invalid-container"]}>
                 <p>Name can't be empty</p>
+              </div>
+            )}
+          </div>
+          <div className={classes["form-validation"]}>
+            <Input
+              ref={profileRef}
+              input={{ type: "file", placeholder: "Name" }}
+              className={!formInputIsValid.profile ? classes.invalid : ""}
+              required={true}
+            />
+            {!formInputIsValid.profile && (
+              <div className={classes["invalid-container"]}>
+                <p>Profile can't be empty</p>
               </div>
             )}
           </div>

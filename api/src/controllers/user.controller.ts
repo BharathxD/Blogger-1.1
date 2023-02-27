@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { loginUserInput, registerUserInput } from "../schema/user.schema";
 import { registerUser, validatePassword } from "../services/user.service";
+import fs from "fs";
 import { omit } from "lodash";
 import logger from "../utils/logger";
 import { signJWT, verifyJWT } from "../utils/jwt.utils";
@@ -11,8 +12,22 @@ export const registerUserHandler = async (
 ) => {
   const { name, email, password } = req.body;
   try {
+    let newPath = "";
+    if (req.file && req.file.originalname) {
+      const { originalname, path } = req.file;
+      const parts = originalname.split(".");
+      const extension = parts[parts.length - 1];
+      newPath = path + "." + extension;
+      fs.renameSync(path, newPath);
+    }
     logger.info("Creating the User...");
-    const user = await registerUser({ name, email, password });
+    console.log(newPath)
+    const user = await registerUser({
+      name,
+      profile: newPath,
+      email,
+      password,
+    });
     const session = signJWT(user);
     logger.info("The user has been created ✅");
     res.status(200).cookie("token", session).send(omit(user, "password"));

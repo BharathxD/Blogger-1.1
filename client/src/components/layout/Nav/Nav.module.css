@@ -20,6 +20,7 @@
   background-color: rgb(44, 44, 44);
   padding: 15px;
   border-radius: 10px;
+  border: 1px solid rgba(44, 44, 44, 0.467);
 }
 
 .neumorphic:hover {
@@ -71,4 +72,10 @@ a:hover {
   background-color: rgb(255, 81, 81);
   background: #ff6666;
   box-shadow: inset -26px 26px 53px #e35b5b, inset 26px -26px 53px #ff7171;
+}
+
+.profile {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
 }

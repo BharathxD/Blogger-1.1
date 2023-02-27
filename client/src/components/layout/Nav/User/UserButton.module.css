@@ -1,11 +1,21 @@
 .username {
   margin-right: 20px;
-  background-color: #f4f4f4;
+  background-color: #f4f4f49a;
+  border: 1px solid #f4f4f43d;
   color: rgb(44, 44, 44);
-  padding: 15px;
   border-radius: 10px;
+  display: flex;
+  padding: 10px;
+  width: max-content;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
-.nav .username i {
-  font-size: 1rem;
+.profile {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 100%;
+  margin-left: 5px;
 }

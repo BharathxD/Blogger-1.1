@@ -33,12 +33,12 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route
             path="/posts/create"
-            element={<CreatePost isLoggedIn={isLoggedIn} />}
+            element={<CreatePost />}
           />
           <Route path="/posts/:id" element={<PostPage />} />
           <Route
             path="/posts/edit/:id"
-            element={<EditPost isLoggedIn={isLoggedIn} />}
+            element={<EditPost />}
           />
         </Route>
       </Routes>

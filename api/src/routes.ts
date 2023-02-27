@@ -27,7 +27,12 @@ const route = (app: Express) => {
   app.get("/healthcheck", (req: Request, res: Response) => {
     res.status(200); // Ok
   });
-  app.post("/api/register", validate(registerUserSchema), registerUserHandler);
+  app.post(
+    "/api/register",
+    uploadMiddleware.single("file"),
+    validate(registerUserSchema),
+    registerUserHandler
+  );
   app.post("/api/login", validate(loginUserSchema), loginUserHandler);
   app.get("/api/profile", profileHandler);
   app.get("/api/logout", logoutHandler);

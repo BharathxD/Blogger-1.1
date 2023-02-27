@@ -5,17 +5,20 @@ interface ISessionState {
   username: string;
   userId: string;
   isLoggedIn: boolean;
+  profile: string;
 }
 
 interface ISessionAction {
   userId: string;
   username: string;
+  profile: string;
 }
 
 const initialSessionState: ISessionState = {
   username: "",
   userId: "",
   isLoggedIn: false,
+  profile: "",
 };
 
 export const Session = createSlice({
@@ -28,9 +31,10 @@ export const Session = createSlice({
     logout(state) {
       state.isLoggedIn = false;
     },
-    setUsername(state, action: PayloadAction<ISessionAction>) {
+    setUser(state, action: PayloadAction<ISessionAction>) {
       state.userId = action.payload.userId;
       state.username = action.payload.username;
+      state.profile = action.payload.profile;
     },
   },
 });

@@ -2,16 +2,20 @@ import { useEffect, useCallback } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import classes from "./Nav.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout, setUsername } from "../../../store";
+import { login, logout, setUser } from "../../../store";
 import UserButton from "./User/UserButton";
+import { LayoutEnum } from "../../../constants/layout.constants";
 
 const Nav: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, username } = useSelector(
-    (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
+  const { isLoggedIn, username, profile } = useSelector(
+    (state: {
+      Session: { isLoggedIn: boolean; username: string; profile: string };
+    }) => ({
       isLoggedIn: state.Session.isLoggedIn,
       username: state.Session.username,
+      profile: state.Session.profile,
     })
   );
 
@@ -22,10 +26,14 @@ const Nav: React.FC = () => {
           credentials: "include",
         });
         const data = await response.json();
-        if (data.name) {
-          dispatch(login());
-          dispatch(setUsername({ userId: data._id, username: data.name }));
-        }
+        dispatch(
+          setUser({
+            userId: data._id,
+            username: data.name,
+            profile: data.profile,
+          })
+        );
+        dispatch(login());
       } catch (error: any) {
         console.log(error);
       }
@@ -45,11 +53,11 @@ const Nav: React.FC = () => {
       console.log(error);
     }
   }, [dispatch, navigate]);
-
+  console.log(`http://localhost:3000/${profile}`);
   return (
     <nav className={classes.nav}>
       <Link to={!isLoggedIn ? "/" : "/posts"} className={classes.logo}>
-        Blogger 2.0
+        {LayoutEnum.PLATFORM_TITLE}
       </Link>
       {isLoggedIn && (
         <ul className={classes.loggedin}>
@@ -72,7 +80,7 @@ const Nav: React.FC = () => {
               <i className="bi bi-box-arrow-right"></i>
             </a>
           </li>
-          <UserButton username={username} />
+          <UserButton username={username} profile={profile} />
         </ul>
       )}
       {!isLoggedIn && (

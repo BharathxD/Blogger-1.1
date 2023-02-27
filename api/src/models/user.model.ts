@@ -5,6 +5,7 @@ import config from "config";
 export interface UserDocument extends mongoose.Document {
   email: string;
   name: string;
+  profile: string,
   password: string;
   createdAt: Date;
   updatedAt: Date;
@@ -13,6 +14,10 @@ export interface UserDocument extends mongoose.Document {
 
 const USER = {
   name: {
+    type: String,
+    require: true,
+  },
+  profile: {
     type: String,
     require: true,
   },
