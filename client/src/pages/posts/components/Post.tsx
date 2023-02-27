@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import classes from "./Post.module.css";
 import { Link } from "react-router-dom";
+import UserAvatar from "../../../components/layout/Nav/User/UserAvatar";
 
 interface Props {
   _id: string;

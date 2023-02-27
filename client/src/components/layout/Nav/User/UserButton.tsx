@@ -1,3 +1,4 @@
+import UserAvatar from "./UserAvatar";
 import classes from "./UserButton.module.css";
 
 const UserButton: React.FC<{
@@ -6,11 +7,8 @@ const UserButton: React.FC<{
 }> = ({ username, profile }) => {
   return (
     <li className={classes.username}>
-      <span>{username}&nbsp;</span>
-      <img
-        src={`http://localhost:3000/${profile.replace("src/", "")}`}
-        className={classes["profile"]}
-      />
+      <span>{username}</span>
+      &nbsp;&nbsp;<UserAvatar />
     </li>
   );
 };

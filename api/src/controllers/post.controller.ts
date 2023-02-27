@@ -42,7 +42,7 @@ export const postHandler = async (
       cover: newPath,
     });
   } else {
-    res.send(409);
+    res.status(409);
   }
 };
 

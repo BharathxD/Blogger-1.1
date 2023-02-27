@@ -5,9 +5,6 @@ import logger from "../utils/logger";
 const requireUser = (req: Request, res: Response, next: NextFunction) => {
   try {
     const { token } = req.cookies;
-    if (!token) {
-      throw new Error("The token is not provided");
-    }
     const user = verifyJWT(token);
     if (!user) {
       res.status(403).send({ message: "The user is not authenticated" });
