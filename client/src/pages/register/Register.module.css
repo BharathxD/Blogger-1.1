@@ -20,10 +20,66 @@
 
 form {
   padding: 10px;
-  height: max-content;
+  height: 100%;
   text-align: center;
 }
 
 .form-validation {
   margin-bottom: 10px;
+}
+
+input[type="file"] {
+  position: absolute;
+  top: -1000px;
+}
+
+.file-form-validation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.profile i {
+  color: rgba(255, 255, 255, 0.467);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  font-size: 4rem;
+  transition: color 0.25s ease;
+}
+
+.profile i:hover {
+  color: rgba(255, 255, 255, 0.667);
+}
+
+.profile {
+  margin: 0;
+  border-radius: 100%;
+  color: #303030ae;
+  font-weight: 600;
+  padding: 5px;
+  height: 100px;
+  width: 100px;
+  margin-top: -35px;
+  position: relative;
+  cursor: pointer;
+}
+
+.upload-profile {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  width: 200px;
+  z-index: 2;
+  color: #f4f4f4;
+  bottom: -15px;
+  left: -50px;
 }

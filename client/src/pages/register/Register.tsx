@@ -102,6 +102,24 @@ const Register = () => {
               Registration Failed
             </div>
           )}
+          <div className={classes["file-form-validation"]}>
+            <label htmlFor="file" className={classes.profile}>
+              <i className="bi bi-person-circle"></i>
+              <span className={classes["upload-profile"]}>Upload Profile Picture</span>
+            </label>
+            <input
+              ref={profileRef}
+              id="file"
+              type="file"
+              placeholder="File"
+              required={true}
+            />
+            {!formInputIsValid.profile && (
+              <div className={classes["invalid-container"]}>
+                <p>Profile can't be empty</p>
+              </div>
+            )}
+          </div>
           <div className={classes["form-validation"]}>
             <Input
               ref={nameInputRef}
@@ -111,19 +129,6 @@ const Register = () => {
             {!formInputIsValid.name && (
               <div className={classes["invalid-container"]}>
                 <p>Name can't be empty</p>
-              </div>
-            )}
-          </div>
-          <div className={classes["form-validation"]}>
-            <Input
-              ref={profileRef}
-              input={{ type: "file", placeholder: "Name" }}
-              className={!formInputIsValid.profile ? classes.invalid : ""}
-              required={true}
-            />
-            {!formInputIsValid.profile && (
-              <div className={classes["invalid-container"]}>
-                <p>Profile can't be empty</p>
               </div>
             )}
           </div>
