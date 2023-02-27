@@ -12,6 +12,7 @@ import CreatePost from "./pages/posts/components/CreatePost";
 import { ISessionState } from "./types/Session.types";
 import PostPage from "./pages/posts/components/PostPage";
 import EditPost from "./pages/posts/components/EditPost";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 interface State {
   Session: Pick<ISessionState, "isLoggedIn">;
@@ -25,18 +26,21 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-        <Route path="/posts" element={<Posts isLoggedIn={isLoggedIn} />} />
-        <Route
-          path="/posts/create"
-          element={<CreatePost isLoggedIn={isLoggedIn} />}
-        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/posts/:id" element={<PostPage />} />
-        <Route
-          path="/posts/edit/:id"
-          element={<EditPost isLoggedIn={isLoggedIn} />}
-        />
+
+        <Route element={<PrivateRoutes />}>
+          <Route path="/posts" element={<Posts />} />
+          <Route
+            path="/posts/create"
+            element={<CreatePost isLoggedIn={isLoggedIn} />}
+          />
+          <Route path="/posts/:id" element={<PostPage />} />
+          <Route
+            path="/posts/edit/:id"
+            element={<EditPost isLoggedIn={isLoggedIn} />}
+          />
+        </Route>
       </Routes>
     </Layout>
   );

@@ -57,6 +57,7 @@ const Login = () => {
         credentials: "include",
       });
       if (response.ok) {
+        const responseData = await response.json();
         dispatch(login());
         setLoginSuccessful(true);
         navigate("/posts");

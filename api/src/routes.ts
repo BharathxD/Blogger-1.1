@@ -39,7 +39,7 @@ const route = (app: Express) => {
     postHandler
   );
 
-  app.get("/api/posts", requireUser, getPostsHandler);
+  app.get("/api/posts", getPostsHandler);
 
   app.get(
     "/api/posts/:postId",

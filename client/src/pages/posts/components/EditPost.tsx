@@ -7,16 +7,9 @@ import Quill from "../UI/Quill";
 import { postsData } from "../Posts";
 import FormCard from "../../../components/UI/FormCard";
 
-interface Props {
-  isLoggedIn: boolean;
-}
-
-const EditPost: React.FC<Props> = ({ isLoggedIn }) => {
+const EditPost: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isLoggedIn === false) navigate("/");
-  }, []);
   const [textAreaValue, setTextAreaValue] = useState<string>("");
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const summaryInputRef = useRef<HTMLInputElement | null>(null);

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ISessionState {
   username: string;
+  userId: string;
   isLoggedIn: boolean;
 }
 
@@ -13,6 +14,7 @@ interface ISessionAction {
 
 const initialSessionState: ISessionState = {
   username: "",
+  userId: "",
   isLoggedIn: false,
 };
 
@@ -21,17 +23,14 @@ export const Session = createSlice({
   initialState: initialSessionState,
   reducers: {
     login(state) {
-      return { ...state, isLoggedIn: true };
+      state.isLoggedIn = true;
     },
     logout(state) {
-      return { ...state, isLoggedIn: false };
+      state.isLoggedIn = false;
     },
     setUsername(state, action: PayloadAction<ISessionAction>) {
-      return {
-        ...state,
-        userId: action.payload.userId,
-        username: action.payload.username,
-      };
+      state.userId = action.payload.userId;
+      state.username = action.payload.username;
     },
   },
 });

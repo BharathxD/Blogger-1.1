@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import classes from "./Posts.module.css";
 import Post from "./components/Post";
 import Loader from "../../components/UI/Loader";
-
-interface Props {
-  isLoggedIn: boolean;
-}
 
 export interface postsData {
   _id: string;
@@ -18,12 +13,8 @@ export interface postsData {
   createdAt: string;
 }
 
-const Posts: React.FC<Props> = ({ isLoggedIn }) => {
-  const navigate = useNavigate();
+const Posts: React.FC = () => {
   const [data, setData] = useState<postsData[] | null>(null);
-  useEffect(() => {
-    if (isLoggedIn === false) navigate("/");
-  }, [isLoggedIn]);
   useEffect(() => {
     const fetchPosts = async () => {
       setData(null);

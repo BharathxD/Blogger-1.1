@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import logger from "../utils/logger";
 
 interface DeleteFileOptions {
   directoryPath: string;
@@ -11,10 +12,10 @@ export const deleteFile = ({ directoryPath, fileName }: DeleteFileOptions) => {
 
   fs.unlink(fullPath, (err) => {
     if (err) {
-      console.error("Error deleting file: ", err);
+      logger.error("Error deleting file: ", err);
       return;
     }
 
-    console.log(`File "${fileName}" deleted successfully.`);
+    logger.info(`File "${fileName}" deleted successfully.`);
   });
 };

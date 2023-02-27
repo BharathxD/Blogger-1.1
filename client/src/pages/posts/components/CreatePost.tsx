@@ -5,15 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import Quill from "../UI/Quill";
 
-interface Props {
-  isLoggedIn: boolean;
-}
-
-const CreatePost: React.FC<Props> = ({ isLoggedIn }) => {
+const CreatePost: React.FC = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isLoggedIn === false) navigate("/");
-  }, []);
   const [textAreaValue, setTextAreaValue] = useState<string>("");
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const summaryInputRef = useRef<HTMLInputElement | null>(null);
