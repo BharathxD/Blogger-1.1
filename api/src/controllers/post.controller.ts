@@ -83,11 +83,6 @@ export const deletePostHandler = async (
     if (!token) {
       throw new Error("The user is not authenticated");
     }
-    const user = verifyJWT(token);
-    //? If verifyJWT doesn't return the token validity, the provided token is not valid
-    if (!user) {
-      throw new Error("Found no users");
-    }
     const { postId } = req.params;
     const post = await findPost({ _id: postId });
     //? If findPost doesn't return any post, it throws new error that the post does;t exist
@@ -110,19 +105,6 @@ export const deletePostHandler = async (
   }
 };
 
-export const findPostHandler = async (
-  req: Request<GetOnePostInput["params"]>,
-  res: Response
-) => {
-  try {
-    const { postId } = req.params;
-    const post = await findPost({ _id: postId });
-    res.status(200).send(post);
-  } catch (error: any) {
-    res.status(409).send({ message: error });
-  }
-};
-
 export const editPostHandler = async (
   req: Request<EditPostInput["params"]>,
   res: Response
@@ -142,9 +124,6 @@ export const editPostHandler = async (
       throw new Error("The user is not authenticated");
     }
     const user = verifyJWT(token);
-    if (!user) {
-      throw new Error("The request is invalid");
-    }
     const userId = (user.decoded as { _id: string })._id;
     const requestedPost = await findPost({ author: userId });
     if (!requestedPost) {

@@ -37,10 +37,6 @@ export const deletePostSchema = object({
   ...params,
 });
 
-export const findPostSchema = object({
-  ...params,
-});
-
 export const editPostSchema = object({
   ...payload,
   ...params,
@@ -48,7 +44,7 @@ export const editPostSchema = object({
 
 export type CreatePostInput = TypeOf<typeof createPostSchema>;
 
-export type GetPostsInput = TypeOf<typeof getPostsSchema>
+export type GetPostsInput = TypeOf<typeof getPostsSchema>;
 
 export type GetOnePostInput = TypeOf<typeof getOnePostSchema>;
 
