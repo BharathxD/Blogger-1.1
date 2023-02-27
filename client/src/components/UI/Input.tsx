@@ -1,4 +1,4 @@
-import { ForwardedRef, RefObject, forwardRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 
 interface Props {
   input: {
@@ -9,18 +9,31 @@ interface Props {
   ref: ForwardedRef<HTMLInputElement>;
   className?: string;
   value?: string | undefined;
+  required?: boolean;
 }
 
 const Input: React.FC<Props> = forwardRef(
-  ({ input, className, value }, ref) => {
+  ({ input, className, value, required }, ref) => {
     return (
-      <input
-        {...input}
-        ref={ref}
-        className={className}
-        defaultValue={value ?? ""}
-        required
-      />
+      <>
+        {required && (
+          <input
+            {...input}
+            ref={ref}
+            className={className}
+            defaultValue={value ?? ""}
+            required
+          />
+        )}
+        {!required && (
+          <input
+            {...input}
+            ref={ref}
+            className={className}
+            defaultValue={value ?? ""}
+          />
+        )}
+      </>
     );
   }
 );

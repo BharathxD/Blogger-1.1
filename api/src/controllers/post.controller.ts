@@ -10,7 +10,7 @@ import {
 } from "../services/post.service";
 import { verifyJWT } from "../utils/jwt.utils";
 import logger from "../utils/logger";
-import { deleteFile } from "../middlewares/deleteFile";
+import { deleteFile } from "../middlewares/deleteFile.middleware";
 import {
   CreatePostInput,
   DeletePostInput,

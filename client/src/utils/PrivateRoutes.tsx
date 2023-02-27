@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { ISessionState } from "../types/Session.types";
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Loader from "../components/UI/Loader";
 
 interface State {
   Session: Pick<ISessionState, "isLoggedIn">;
@@ -20,7 +21,15 @@ const PrivateRoutes = () => {
   }, [isLoggedIn]);
 
   if (isLoading) {
-    return <></>;
+    return (
+      <div
+        style={{
+          minHeight: "81vh",
+        }}
+      >
+        <Loader />
+      </div>
+    );
   }
 
   return isLoggedIn ? <Outlet /> : <Navigate to={"/"} />;

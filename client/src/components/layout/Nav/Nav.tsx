@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import classes from "./Nav.module.css";
 import { useSelector, useDispatch } from "react-redux";

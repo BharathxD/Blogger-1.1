@@ -90,6 +90,7 @@ const EditPost: React.FC = () => {
             <Input
               input={{ type: "file", placeholder: "File" }}
               ref={fileInputRef}
+              required={true}
             />
           </div>
           <div className={classes["input-container"]}>

@@ -20,7 +20,6 @@ import {
   deletePostSchema,
   editPostSchema,
   getOnePostSchema,
-  getPostsSchema,
 } from "./schema/post.schema";
 import requireUser from "./middlewares/requireUser.middleware";
 
