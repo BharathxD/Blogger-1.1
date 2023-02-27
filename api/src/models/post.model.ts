@@ -3,6 +3,7 @@ import { UserDocument } from "./user.model";
 
 export interface PostDocument extends mongoose.Document {
   author: UserDocument["_id"];
+  authorProfile: string;
   title: string;
   summary: string;
   content: string;
@@ -13,6 +14,10 @@ export interface PostDocument extends mongoose.Document {
 
 const POST = {
   title: {
+    type: String,
+    require: true,
+  },
+  authorProfile: {
     type: String,
     require: true,
   },

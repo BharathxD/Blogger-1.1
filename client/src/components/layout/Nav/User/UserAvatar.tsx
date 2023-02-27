@@ -1,17 +1,14 @@
 import { useSelector } from "react-redux";
 import classes from "./UserAvatar.module.css";
 
-const UserAvatar = () => {
-  const { profile } = useSelector(
-    (state: {
-      Session: { isLoggedIn: boolean; username: string; profile: string };
-    }) => ({
-      profile: state.Session.profile,
-    })
-  );
+interface Props {
+  url: string;
+}
+
+const UserAvatar: React.FC<Props> = ({ url }) => {
   return (
     <img
-      src={`http://localhost:3000/${profile.replace("src/", "")}`}
+      src={`http://localhost:3000/${url.replace("src/", "")}`}
       className={classes["profile"]}
     />
   );

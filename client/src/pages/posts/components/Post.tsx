@@ -8,6 +8,7 @@ interface Props {
   content: string;
   cover: string;
   author: string;
+  authorProfile: string;
   summary: string;
   title: string;
   createdAt: string;
@@ -19,6 +20,7 @@ const Post: React.FC<Props> = ({
   cover,
   summary,
   author,
+  authorProfile,
   title,
   createdAt,
 }) => {
@@ -37,11 +39,16 @@ const Post: React.FC<Props> = ({
               {title}
             </span>
           </Link>
-          <h6>
-            <span className={classes.author}>
-              {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
-            </span>
-          </h6>
+          <div className={classes.timestamp}>
+            <div>
+              <span className={classes.author}>
+                <UserAvatar url={authorProfile} />
+              </span>
+              <span>
+                {author} at {format(new Date(createdAt), "MMM d, yyyy HH:mm")}
+              </span>
+            </div>
+          </div>
         </div>
         <p>{summary.split(" ").splice(0, 60).join(" ")}</p>
       </div>

@@ -8,7 +8,8 @@ const UserButton: React.FC<{
   return (
     <li className={classes.username}>
       <span>{username}</span>
-      &nbsp;&nbsp;<UserAvatar />
+      &nbsp;&nbsp;
+      <UserAvatar url={profile} />
     </li>
   );
 };

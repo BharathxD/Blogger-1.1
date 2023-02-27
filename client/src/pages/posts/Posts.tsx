@@ -7,6 +7,7 @@ export interface postsData {
   _id: string;
   content: string;
   author: { name: string; _id: string };
+  authorProfile: string;
   cover: string;
   summary: string;
   title: string;
@@ -22,20 +23,32 @@ const Posts: React.FC = () => {
         method: "GET",
       });
       const fetchedData = await response.json();
+      console.log(fetchedData)
       let loadedPosts: postsData[] = Object.entries(fetchedData).map(
         ([
           id,
-          { _id, title, summary, content, author, cover, createdAt },
+          {
+            _id,
+            title,
+            summary,
+            content,
+            author,
+            authorProfile,
+            cover,
+            createdAt,
+          },
         ]: any) => ({
           _id,
           title,
           author,
+          authorProfile,
           summary,
           content,
           cover,
           createdAt,
         })
       );
+      console.log(loadedPosts[0].authorProfile);
       setData(loadedPosts);
     };
     fetchPosts();
@@ -57,6 +70,7 @@ const Posts: React.FC = () => {
               _id={post._id}
               title={post.title}
               author={post.author.name}
+              authorProfile={post.authorProfile}
               summary={post.summary}
               content={post.content}
               cover={post.cover}

@@ -33,9 +33,11 @@ export const postHandler = async (
     const { token } = req.cookies;
     const user = verifyJWT(token);
     const authorID = (user.decoded as { _id: number })._id;
+    const authorProfile = (user.decoded as {profile: string}).profile;
     const { title, summary, content } = req.body;
     await uploadPost({
       author: authorID,
+      authorProfile: authorProfile,
       title: title,
       summary: summary,
       content: content,
