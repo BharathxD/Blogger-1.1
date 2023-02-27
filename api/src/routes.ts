@@ -47,7 +47,7 @@ const route = (app: Express) => {
 
   app.get(
     "/api/posts/:postId",
-    [requireUser, validate(getOnePostSchema)],
+    validate(getOnePostSchema),
     getOnePostHandler
   );
 

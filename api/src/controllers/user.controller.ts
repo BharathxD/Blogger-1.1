@@ -69,5 +69,5 @@ export const profileHandler = (req: Request, res: Response) => {
 };
 
 export const logoutHandler = async (req: Request, res: Response) => {
-  res.status(200).cookie("token", "").json({ message: "Session Ended" });
+  res.status(200).cookie("token", "").cookie("auth_token", "").json({ message: "Session Ended" });
 };
