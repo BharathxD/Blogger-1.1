@@ -67,14 +67,7 @@ const Posts: React.FC = () => {
           return (
             <Post
               key={post._id}
-              _id={post._id}
-              title={post.title}
-              author={post.author.name}
-              authorProfile={post.authorProfile}
-              summary={post.summary}
-              content={post.content}
-              cover={post.cover}
-              createdAt={post.createdAt}
+              post={post}
             />
           );
         })}
