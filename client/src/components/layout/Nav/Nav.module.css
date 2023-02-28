@@ -6,7 +6,7 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  background: rgba(255, 255, 255, 0.25);
+  backxxground: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.18);
