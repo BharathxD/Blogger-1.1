@@ -2,18 +2,10 @@ import { format } from "date-fns";
 import classes from "./Post.module.css";
 import { Link } from "react-router-dom";
 import UserAvatar from "../../../components/layout/Nav/User/UserAvatar";
+import { postsData } from "../../../types/Post.types";
 
 interface Props {
-  post: {
-    _id: string;
-    content: string;
-    cover: string;
-    author: { name: string };
-    authorProfile: string;
-    summary: string;
-    title: string;
-    createdAt: string;
-  };
+  post: postsData;
 }
 
 const Post: React.FC<Props> = ({ post }) => {

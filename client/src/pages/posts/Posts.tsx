@@ -2,17 +2,7 @@ import { useEffect, useState } from "react";
 import classes from "./Posts.module.css";
 import Post from "./components/Post";
 import Loader from "../../components/UI/Loader";
-
-export interface postsData {
-  _id: string;
-  content: string;
-  author: { name: string; _id: string };
-  authorProfile: string;
-  cover: string;
-  summary: string;
-  title: string;
-  createdAt: string;
-}
+import { postsData } from "../../types/Post.types";
 
 const Posts: React.FC = () => {
   const [data, setData] = useState<postsData[] | null>(null);
@@ -23,7 +13,7 @@ const Posts: React.FC = () => {
         method: "GET",
       });
       const fetchedData = await response.json();
-      console.log(fetchedData)
+      console.log(fetchedData);
       let loadedPosts: postsData[] = Object.entries(fetchedData).map(
         ([
           id,
@@ -64,13 +54,9 @@ const Posts: React.FC = () => {
     <main className={classes.entries}>
       {data &&
         data.map((post: postsData) => {
-          return (
-            <Post
-              key={post._id}
-              post={post}
-            />
-          );
+          return <Post key={post._id} post={post} />;
         })}
+      {!data && <p>Found no posts</p>}
     </main>
   );
 };

@@ -31,15 +31,9 @@ function App() {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/posts" element={<Posts />} />
-          <Route
-            path="/posts/create"
-            element={<CreatePost />}
-          />
+          <Route path="/posts/create" element={<CreatePost />} />
           <Route path="/posts/:id" element={<PostPage />} />
-          <Route
-            path="/posts/edit/:id"
-            element={<EditPost />}
-          />
+          <Route path="/posts/edit/:id" element={<EditPost />} />
         </Route>
       </Routes>
     </Layout>

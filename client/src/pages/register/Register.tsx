@@ -105,7 +105,9 @@ const Register = () => {
           <div className={classes["file-form-validation"]}>
             <label htmlFor="file" className={classes.profile}>
               <i className="bi bi-person-circle"></i>
-              <span className={classes["upload-profile"]}>Upload Profile Picture</span>
+              <span className={classes["upload-profile"]}>
+                Upload Profile Picture
+              </span>
             </label>
             <input
               ref={profileRef}

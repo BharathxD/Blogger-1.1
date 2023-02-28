@@ -21,7 +21,7 @@ export const registerUserHandler = async (
       fs.renameSync(path, newPath);
     }
     logger.info("Creating the User...");
-    console.log(newPath)
+    console.log(newPath);
     const user = await registerUser({
       name,
       profile: newPath,
@@ -69,5 +69,9 @@ export const profileHandler = (req: Request, res: Response) => {
 };
 
 export const logoutHandler = async (req: Request, res: Response) => {
-  res.status(200).cookie("token", "").cookie("auth_token", "").json({ message: "Session Ended" });
+  res
+    .status(200)
+    .cookie("token", "")
+    .cookie("auth_token", "")
+    .json({ message: "Session Ended" });
 };

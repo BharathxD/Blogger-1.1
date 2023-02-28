@@ -4,7 +4,7 @@ import Input from "../../../components/UI/Input";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Quill from "../UI/Quill";
-import { postsData } from "../Posts";
+import { postsData } from "../../../types/Post.types";
 import FormCard from "../../../components/UI/FormCard";
 
 const EditPost: React.FC = () => {

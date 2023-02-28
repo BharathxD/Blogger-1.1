@@ -45,11 +45,7 @@ const route = (app: Express) => {
 
   app.get("/api/posts", getPostsHandler);
 
-  app.get(
-    "/api/posts/:postId",
-    validate(getOnePostSchema),
-    getOnePostHandler
-  );
+  app.get("/api/posts/:postId", validate(getOnePostSchema), getOnePostHandler);
 
   app.delete(
     "/api/posts/:postId",

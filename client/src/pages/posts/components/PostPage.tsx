@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { postsData } from "../Posts";
+import { postsData } from "../../../types/Post.types";
 import { format } from "date-fns";
 import classes from "./PostPage.module.css";
 import { Link } from "react-router-dom";
