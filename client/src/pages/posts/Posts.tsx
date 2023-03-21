@@ -12,8 +12,10 @@ const Posts: React.FC = () => {
       const response = await fetch("http://localhost:3000/api/posts", {
         method: "GET",
       });
+      if (!response) {
+        return;
+      }
       const fetchedData = await response.json();
-      console.log(fetchedData);
       let loadedPosts: postsData[] = Object.entries(fetchedData).map(
         ([
           id,
@@ -38,7 +40,6 @@ const Posts: React.FC = () => {
           createdAt,
         })
       );
-      console.log(loadedPosts[0].authorProfile);
       setData(loadedPosts);
     };
     fetchPosts();
@@ -56,7 +57,7 @@ const Posts: React.FC = () => {
         data.map((post: postsData) => {
           return <Post key={post._id} post={post} />;
         })}
-      {!data && <p>Found no posts</p>}
+      {data.length === 0 && <p>Found no posts</p>}
     </main>
   );
 };

@@ -35,6 +35,11 @@
 .content {
   padding: 10px;
   text-align: left;
+  background-color: #393939;
+  border: 1px solid #a1a1a1;
+  border-radius: 25px;
+  padding: 25px;
+  font-size: 1.25rem;
 }
 
 .actions {

@@ -54,7 +54,6 @@ const Nav: React.FC = () => {
       console.log(error);
     }
   }, [dispatch, navigate]);
-  console.log(`http://localhost:3000/${profile}`);
   return (
     <nav className={classes.nav}>
       <Link to={!isLoggedIn ? "/" : "/posts"} className={classes.logo}>

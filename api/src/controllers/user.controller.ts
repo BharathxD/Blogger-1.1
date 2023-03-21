@@ -21,7 +21,6 @@ export const registerUserHandler = async (
       fs.renameSync(path, newPath);
     }
     logger.info("Creating the User...");
-    console.log(newPath);
     const user = await registerUser({
       name,
       profile: newPath,

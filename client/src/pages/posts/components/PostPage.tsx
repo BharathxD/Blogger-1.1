@@ -35,7 +35,6 @@ const PostPage: React.FC = () => {
         if (!response.ok) throw new Error("Something went wrong");
         const data = await response.json();
         setData(data[0]);
-        console.log(data);
         setFetchState({
           error: false,
           isLoading: false,
