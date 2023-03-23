@@ -5,7 +5,6 @@ import UserAvatar from "../../../components/layout/Nav/User/UserAvatar";
 import { postsData } from "../../../types/Post.types";
 
 const Post = ({ post }: { post: postsData }) => {
-  
   const uri = `http://localhost:3000/${post.cover.replace("src/", "")}`;
 
   const summary = post.summary.split(" ").splice(0, 60).join(" ");
