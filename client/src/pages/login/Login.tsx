@@ -33,7 +33,6 @@ const Login = () => {
     password: true,
   });
   const [loginSuccessful, setLoginSuccessful] = useState<boolean | null>(null);
-  const [redirect, setRedirect] = useState<boolean>(false);
   const submitLoginFormHandler = async (e: FormEvent) => {
     e.preventDefault();
     const email = emailInputRef.current!.value;
@@ -57,13 +56,12 @@ const Login = () => {
         credentials: "include",
       });
       if (response.ok) {
-        const responseData = await response.json();
+        await response.json();
         dispatch(login());
         setLoginSuccessful(true);
         navigate("/posts");
         emailInputRef.current!.value = "";
         passwordInputRef.current!.value = "";
-        setRedirect(true);
       } else {
         setLoginSuccessful(false);
       }
