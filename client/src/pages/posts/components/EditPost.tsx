@@ -14,32 +14,19 @@ const EditPost: React.FC = () => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const summaryInputRef = useRef<HTMLInputElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [fetchState, setFetchState] = useState<{
-    error: boolean;
-    isLoading: boolean;
-  }>({
-    error: false,
-    isLoading: true,
-  });
   const [data, setData] = useState<postsData | null>();
+  const [error, setError] = useState<boolean>(false);
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setData(null);
         const response = await fetch(`http://localhost:3000/api/posts/${id}`);
-        if (!response.ok) throw new Error("Somethign went wrong");
+        if (!response.ok) throw new Error("Something went wrong");
         const data = await response.json();
         setTextAreaValue(data[0].content);
         setData(data[0]);
-        setFetchState({
-          error: false,
-          isLoading: false,
-        });
       } catch (error: any) {
-        setFetchState({
-          error: true,
-          isLoading: false,
-        });
+        setError(true);
       }
     };
     fetchPost();
@@ -72,6 +59,11 @@ const EditPost: React.FC = () => {
           className={classes["form-container"]}
           onSubmit={createPostSubmitHandler}
         >
+          {error && (
+            <div className={classes["invalid-container"]}>
+              Something went wrong, try again later.
+            </div>
+          )}
           <div className={classes["input-container"]}>
             <Input
               input={{ type: "text", placeholder: "Title" }}
