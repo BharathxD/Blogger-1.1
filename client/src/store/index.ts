@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { Session } from "./Reducer/Session";
+import Session from "./Reducer/Session";
 
 const store = configureStore({
   reducer: {
@@ -7,6 +7,6 @@ const store = configureStore({
   },
 });
 
+export const { login, logout, setUser } = Session.actions;
 export type RootState = ReturnType<typeof store.getState>;
 export default store;
-export const { login, logout, setUser } = Session.actions;

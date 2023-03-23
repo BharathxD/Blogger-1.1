@@ -21,7 +21,7 @@ const initialSessionState: ISessionState = {
   profile: "",
 };
 
-export const Session = createSlice({
+const Session = createSlice({
   name: "Session",
   initialState: initialSessionState,
   reducers: {
@@ -38,3 +38,5 @@ export const Session = createSlice({
     },
   },
 });
+
+export default Session;
