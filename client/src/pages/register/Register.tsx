@@ -8,10 +8,8 @@ import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/UI/FormCard";
 import BG from "../../components/UI/BG";
 import giyuu from "../../assets/giyuu.jpg";
-
-const validEmail = (value: string) => value.trim().includes("@");
-const isEmpty = (value: string) =>
-  value.trim() === "" && value.trim().length === 0;
+import validEmail from "../../helpers/checkEmailIsValid";
+import isEmpty from "../../helpers/checkInputIsEmpty";
 
 type IData = IRegister | Omit<IRegister, "name" & "confirmPassword">;
 

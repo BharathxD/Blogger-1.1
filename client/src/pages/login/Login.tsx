@@ -9,14 +9,12 @@ import { login } from "../../store";
 import FormCard from "../../components/UI/FormCard";
 import BG from "../../components/UI/BG";
 import giyuu from "../../assets/giyuu.jpg";
-
-const isEmpty = (value: string) =>
-  value.trim() === "" && value.trim().length === 0;
+import isEmpty from "../../helpers/checkInputIsEmpty";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn, username } = useSelector(
+  const { isLoggedIn } = useSelector(
     (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
       isLoggedIn: state.Session.isLoggedIn,
       username: state.Session.username,
