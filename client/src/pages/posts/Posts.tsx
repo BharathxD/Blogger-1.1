@@ -44,6 +44,9 @@ const Posts: React.FC = () => {
     };
     fetchPosts();
   }, []);
+  const posts = data?.map((post: postsData) => {
+    return <Post key={post._id} post={post} />;
+  });
   if (!data) {
     return (
       <main>
@@ -53,10 +56,7 @@ const Posts: React.FC = () => {
   }
   return (
     <main className={classes.entries}>
-      {data &&
-        data.map((post: postsData) => {
-          return <Post key={post._id} post={post} />;
-        })}
+      {data && posts}
       {data.length === 0 && <p>Found no posts</p>}
     </main>
   );

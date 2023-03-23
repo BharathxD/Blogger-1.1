@@ -16,7 +16,7 @@ type IData = IRegister | Omit<IRegister, "name" & "confirmPassword">;
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn, username } = useSelector(
+  const { isLoggedIn } = useSelector(
     (state: { Session: { isLoggedIn: boolean; username: string } }) => ({
       isLoggedIn: state.Session.isLoggedIn,
       username: state.Session.username,
